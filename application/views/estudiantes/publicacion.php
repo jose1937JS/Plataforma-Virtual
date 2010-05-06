@@ -17,7 +17,14 @@
 
 					<?php if ( preg_match("/(\.png|\.jpg|\.jpeg|\.ico|\.gif)$/", $publicacion[0]->archivo) ): ?>
 						<img src="<?= base_url('application/third_party/').$publicacion[0]->archivo ?>" alt="">
+
+					<?php elseif( preg_match("/^(http:\/\/|https:\/\/)/", $publicacion[0]->archivo) ): ?>
+						<a href="<?= $publicacion->publicacion ?>" target="_blank"><?= $publicacion->publicacion ?></a>
+					
+					<?php elseif( preg_match("/(\.txt|\.doc|\.docx|\.xls|\.csv|\.odp|\.odg|ppxs|otp|ppt|xlxs|ods|sql|php|html|xml|css|js|py|cpp|java)$/", $publicacion->archivo) ) : ?>
+					
 					<?php endif ?>
+
 
 					<div class="d-flex justify-content-end mt-4">
 						<span class="small"><?= count($comentarios) ?> Comentarios.</span>
