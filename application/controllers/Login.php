@@ -23,8 +23,7 @@ class Login extends CI_Controller {
 
 		$data = $this->LoginModel->getUsers($user);
 
-
-		if ( isset($data) )
+		if ( count($data) > 0 )
 		{
 			if ( $pass == $data[0]->clave ) {
 				$this->session->set_userdata(['role' => $data[0]->role, 'usuario' => $user]);
@@ -37,7 +36,7 @@ class Login extends CI_Controller {
 		} 
 		else {
 			$this->session->set_flashdata('baduser', 'Usuario incorrecto');
-			redirext('');
+			redirect('');
 		}
 	}
 

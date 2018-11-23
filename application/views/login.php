@@ -8,8 +8,8 @@
 
 				<?php if ( $this->session->has_userdata('baduser') || $this->session->has_userdata('badpass') ): ?>
 						
-					<div class="alert alert-warning" role="alert">
-						<?= $this->session->flashdata('baduser'); ?>
+					<div class="alert alert-danger p-1" role="alert">
+						<i class="fa fa-times mr-2 ml-1"></i><small><?= $this->session->flashdata('baduser'); ?></small>
 					</div>
 
 				<?php endif ?>	
