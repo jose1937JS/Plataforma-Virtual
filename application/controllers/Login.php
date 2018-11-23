@@ -7,6 +7,7 @@ class Login extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->helper(['url', 'form']);
+		$this->load->model('Modelo');
 	}
 
 	public function index()
@@ -14,6 +15,14 @@ class Login extends CI_Controller {
 		$this->load->view('header');
 		$this->load->view('login');
 		$this->load->view('footer');
+	}
+
+	public function login()
+	{
+		$user = $this->input->post('usuario');
+		$pass = $this->input->post('clave');
+
+		var_dump($user, $pass);
 	}
 
 

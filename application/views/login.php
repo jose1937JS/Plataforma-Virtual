@@ -4,14 +4,14 @@
 			Inicio de Sesión
 		</div>
 		<div class="card-body">
-			<?= form_open('') ?>
+			<?= form_open('login/login') ?>
 					
 				<div class="input-group mb-2">
 					<div class="input-group-prepend">
 						<div class="input-group-text fas fa-address-card"></div>
 					</div>
 					<input type="text" class="form-control py-0" id="" placeholder="Username">
-				</div>
+				</div >
 				<div class="input-group mb-2">
 					<div class="input-group-prepend">
 						<div class="input-group-text fas key"></div>
