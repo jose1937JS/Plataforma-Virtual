@@ -4,19 +4,27 @@
 			Inicio de Sesión
 		</div>
 		<div class="card-body">
-			<?= form_open('login/login') ?>
+			<?= form_open('login') ?>
+
+				<?php if ( $this->session->has_userdata('baduser') || $this->session->has_userdata('badpass') ): ?>
+						
+					<div class="alert alert-warning" role="alert">
+						<?= $this->session->flashdata('baduser'); ?>
+					</div>
+
+				<?php endif ?>	
 					
 				<div class="input-group mb-2">
 					<div class="input-group-prepend">
 						<div class="input-group-text fas fa-address-card"></div>
 					</div>
-					<input type="text" class="form-control py-0" id="" placeholder="Username">
+					<input type="text" class="form-control py-0" id="" placeholder="Username" name="usuario">
 				</div >
 				<div class="input-group mb-2">
 					<div class="input-group-prepend">
 						<div class="input-group-text fas key"></div>
 					</div>
-					<input type="text" class="form-control py-0" id="" placeholder="Contraseña">
+					<input type="text" class="form-control py-0" id="" placeholder="Contraseña" name="clave">
 				</div>
 
 				<button class="btn btn-primary btn-sm" type="submit">Entrar</button>

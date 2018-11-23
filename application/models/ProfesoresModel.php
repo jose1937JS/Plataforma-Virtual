@@ -1,6 +1,6 @@
 <?php
 
-class Modelo extends CI_Model {
+class ProfesoresModel extends CI_Model {
 
 	public function __construct()
 	{
@@ -8,8 +8,8 @@ class Modelo extends CI_Model {
 		$this->load->database();
 	}
 
-	public function getUsers()
+	public function something()
 	{
-		return $this->db->get('users');
+		return '123';
 	}
 }
