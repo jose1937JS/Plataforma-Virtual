@@ -17,8 +17,10 @@ class Estudiantes extends CI_Controller {
 
 	public function materias($param)
 	{
+		$data['p'] = $param;
+
 		$this->load->view('includes/header');
-		$this->load->view('estudiantes/clases');
+		$this->load->view('estudiantes/clases', $data);
 		$this->load->view('includes/footer');
 	}
 }

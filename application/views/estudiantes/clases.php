@@ -10,7 +10,7 @@
 							</div> -->
 							<p class="pt-4">Jose Lopez a las 17:14 el 15 de Enero del 2018</p>
 						</div>
-						<p style="clear: both;" class="mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, sunt.</p>
+						<p style="clear: both;" class="mt-4"><?= $p ?></p>
 					</div>
 				</div>
 				<div class="card-body py-0 border-top">
