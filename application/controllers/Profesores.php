@@ -10,11 +10,11 @@ class Profesores extends CI_Controller {
 
 	public function index()
 	{
-		$data['txt'] = 'ella no me ama';
+		$data['txt'] = "She doesn't love me :( fuck my life";
 
-		$this->load->view('header');
-		$this->load->view('profesores', $data);
-		$this->load->view('footer');
+		$this->load->view('includes/header');
+		$this->load->view('profesores/profesores', $data);
+		$this->load->view('includes/footer');
 	}
 
 }

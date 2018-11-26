@@ -54,5 +54,7 @@ $route['404_override'] 			 = '';
 $route['translate_uri_dashes']   = FALSE;
 
 $route['login'] 				 = 'login/login';
-$route['dashboard/profesores']   = 'Profesores';
-$route['dashboard/estudiantes']  = 'Estudiantes';
+$route['profesor']			     = 'profesores';
+$route['estudiante']  			 = 'estudiantes';
+
+$route['estudiante/([a-z]+)'] 	 = 'estudiantes/materias/$1';

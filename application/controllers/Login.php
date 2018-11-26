@@ -11,9 +11,9 @@ class Login extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('header');
+		$this->load->view('includes/header');
 		$this->load->view('login');
-		$this->load->view('footer');
+		$this->load->view('includes/footer');
 	}
 
 	public function login()
@@ -25,13 +25,21 @@ class Login extends CI_Controller {
 
 		if ( count($data) > 0 )
 		{
-			if ( $pass == $data[0]->clave ) {
+			if ( $pass == $data[0]->clave )
+			{
 				$this->session->set_userdata(['role' => $data[0]->role, 'usuario' => $user]);
-				redirect('dashboard');
+				
+				if ( $data[0]->role == 'profesor' )
+				{
+					redirect('profesor');
+				}
+				else {
+					redirect('estudiante');
+				}
 			}
 			else {
 				$this->session->set_flashdata('badpass', 'Contraseña incorrecta');
-				redirext('');
+				redirect('');
 			}
 		} 
 		else {
