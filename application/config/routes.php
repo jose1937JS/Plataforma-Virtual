@@ -58,7 +58,6 @@ $route['logout'] 				 = 'login/logout';
 $route['profesor']			     = 'profesores';
 $route['estudiante']  			 = 'estudiantes';
 
-$route['estudiante/([a-z]+)'] 	 = 'estudiantes/materias/$1';
+$route['estudiante/([a-zA-Z]+)/([A-Z])'] = 'estudiantes/materias/$1/$2';
 
-
-$route['pdf']	= 'login/pdf';
+$route['comentar']				 = 'estudiantes/comentar';

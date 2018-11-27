@@ -20,13 +20,13 @@ class Login extends CI_Controller {
 		$user = $this->input->post('usuario');
 		$pass = $this->input->post('clave');
 
-		$data = $this->LoginModel->getUsers($user); 
+		$data = $this->LoginModel->getUsers($user);
 
 		if ( count($data) > 0 )
 		{
 			if ( $pass == $data[0]->clave )
 			{
-				$this->session->set_userdata('sesion', ['role' => $data[0]->role, 'usuario' => $user]);
+				$this->session->set_userdata('sesion', ['role' => $data[0]->tipo, 'usuario' => $user]);
 				
 				if ( $data[0]->role == 'profesor' )
 				{
