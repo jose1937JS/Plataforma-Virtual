@@ -1,3 +1,5 @@
+<div class="fondo">
+	
 <div class="center-padre">		
 	<div class="card hoverable">
 		<div class="card-header text-center">
@@ -34,6 +36,8 @@
 					<input type="text" class="form-control py-0" required placeholder="Contraseña" name="clave">
 				</div>
 
+				<p class="pt-3 small "><a href="#">Olvidé mi contraseña</a></p>
+
 				<button class="btn btn-primary btn-block my-3 p-2" type="submit">
 					<i class="fas fa-sign mr-2"></i> Entrar
 				</button>
@@ -41,3 +45,4 @@
 		</div>
 	</div>
 </div> 
+</div>

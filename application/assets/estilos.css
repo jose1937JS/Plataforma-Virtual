@@ -1,5 +1,11 @@
 body {
-	background-color: #F1F1F1
+	background-color: #F1F1F1;;
+}
+
+button.btn-floating {
+	position: fixed;
+	bottom: 45px; 
+	right: 25px;
 }
 
 .center-padre {
@@ -9,4 +15,9 @@ body {
 	
 	position: absolute;
 	top: 0; bottom: 0; left: 0; right: 0;
+
+	background-image: url('http://127.0.0.1/Plataforma-Virtual/application/assets/fondo.jpg') !important;
+	background-attachment: fixed;
+	background-size: 100%;
+	background-position: center;
 }

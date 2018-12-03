@@ -1,4 +1,4 @@
- <?php
+<?php
 
 class Estudiantes extends CI_Controller {
 
@@ -25,8 +25,8 @@ class Estudiantes extends CI_Controller {
 		$seccionid = $this->EstudiantesModel->getSeccId($materia, $seccion);
 
 		$data['publicaciones'] = $this->EstudiantesModel->getPublicaciones($seccionid[0]->id_seccion);
-
-		var_dump($data['publicaciones']);die;
+		$data['materia'] = $materia;
+		$data['seccion'] = $seccion;
 
 		$this->load->view('includes/header');
 		$this->load->view('estudiantes/clases', $data);
@@ -42,5 +42,33 @@ class Estudiantes extends CI_Controller {
 		$this->EstudiantesModel->comentar($comentario);
 
 		redirect("estudiante/$materia/$seccion");
+	}
+
+	public function publicar()
+	{
+		ini_set('upload_max_filesize', '12M');
+
+		$materia = $this->input->post('materia');
+		$seccion = $this->input->post('seccion');
+		$texto   = $this->input->post('publicacion');
+
+		$config['upload_path']   = './application/third_party/';
+		$config['max_size']	     = '11264'; // 11 megas * 1024
+		$config['allowed_types'] = 'txt|doc|docx|xls|csv|odp|odg|ppxs|otp||png|jpg|jpeg|gif|ppt|xlxs|ods|sql|php|html|xml|css|js|py|cpp|java|pdf';
+
+		$this->load->library('upload', $config);
+
+		if ( $this->upload->do_upload('archivos') )
+		{
+			$this->upload->data();
+			redirect("estudiante/$materia/$seccion");
+		}
+		else
+		{
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($this->upload->display_errors()));
+		}
+
 	}
 }

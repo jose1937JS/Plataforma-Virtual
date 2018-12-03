@@ -54,10 +54,11 @@ $route['404_override'] 			 = '';
 $route['translate_uri_dashes']   = FALSE;
 
 $route['login'] 				 = 'login/login';
-$route['logout'] 				 = 'login/logout';
+$route['logout']['post']		 = 'login/logout';
 $route['profesor']			     = 'profesores';
 $route['estudiante']  			 = 'estudiantes';
 
 $route['estudiante/([a-zA-Z]+)/([A-Z])'] = 'estudiantes/materias/$1/$2';
 
-$route['comentar']				 = 'estudiantes/comentar';
+$route['comentar']['post']		 = 'estudiantes/comentar';
+$route['publicar']['post']		 = 'estudiantes/publicar';

@@ -23,7 +23,7 @@ matematica, fisica, quimica, ingles, biologia, geografia orientacion y convivenc
 					<img class="card-img-top" src="<?= base_url('application') ?>/assets/29.jpg" alt="Card image cap">
 					<div class="card-body">
 						<h4 class="card-title"><a><?= $materia->materia ?></a></h4>
-						<p class="card-text"><?= $materia->descripcion ?></p>
+						<p class="card-text text-justify"><?= $materia->descripcion ?></p>
 						<?= anchor("estudiante/$materia->materia/$materia->seccion", 'Entrar', 'class="btn btn-primary"') ?>
 					</div>
 				</div>

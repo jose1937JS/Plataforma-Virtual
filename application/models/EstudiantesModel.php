@@ -22,7 +22,7 @@ class EstudiantesModel extends CI_Model {
 
 	public function getSeccId($materia, $seccion)
 	{
-		return $this->db->select('*')
+		return $this->db->select('Secciones.id_seccion, Materias.materia')
 				->from('Secciones')
 				->join('Materias', 'Materias.id_materia = Secciones.materia_id')
 				->where('seccion', $seccion)
@@ -32,11 +32,11 @@ class EstudiantesModel extends CI_Model {
 
 	public function getPublicaciones($seccid)
 	{
-		return $this->db->select('*')
+		return $this->db->select('Publicaciones.publicacion, Publicaciones.archivo, Publicaciones.fecha, Publicaciones.seccion_id, Materias.materia, Personas.nombre, Personas.apellido, Secciones.seccion')
 				->from('Publicaciones')
-				->join('Materias', 'Materias.id_materia = Publicaciones.seccion_id')
-				->join('Personas', 'Personas.id_persona = Publicaciones.persona_id')
 				->join('Secciones', 'Secciones.id_seccion = Publicaciones.seccion_id')
+				->join('Materias', 'Materias.id_materia = Secciones.materia_id')
+				->join('Personas', 'Personas.id_persona = Publicaciones.persona_id')
 				->where('Publicaciones.seccion_id', $seccid)
 				->get()->result();
 	}
