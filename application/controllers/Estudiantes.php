@@ -47,31 +47,6 @@ class Estudiantes extends CI_Controller {
 
 	public function publicar()
 	{
-<<<<<<< HEAD
-		ini_set('upload_max_filesize', '12M');
-
-		$materia = $this->input->post('materia');
-		$seccion = $this->input->post('seccion');
-		$texto   = $this->input->post('publicacion');
-
-		$config['upload_path']   = './application/third_party/';
-		$config['max_size']	     = '11264'; // 11 megas * 1024
-		$config['allowed_types'] = 'txt|doc|docx|xls|csv|odp|odg|ppxs|otp||png|jpg|jpeg|gif|ppt|xlxs|ods|sql|php|html|xml|css|js|py|cpp|java|pdf';
-		//Ella no te ama mrc
-		$this->load->library('upload_path', $config);
-
-		if ( $this->upload->do_upload('archivos') )
-		{
-			$this->upload->data();
-			redirect("estudiante/$materia/$seccion");
-		}
-		else
-		{
-			$this->output
-				->set_content_type('application/json')
-				->set_output(json_encode($this->upload->display_errors()));
-		}
-=======
 		// ini_set('upload_max_filesize', '12M');
 
 		$materia 	= $this->input->post('materia');
@@ -80,9 +55,7 @@ class Estudiantes extends CI_Controller {
 		$personaid  = $this->input->post('personaid');
 		$texto   	= $this->input->post('publicacion');
 
-		var_dump($seccionid);exit();
-
-		$this->EstudiantesModel->publicar($texto, $seccionid);
+		$this->EstudiantesModel->publicar($texto, $seccionid, $personaid);
 
 		redirect("estudiante/$materia/$seccion");
 
@@ -107,7 +80,6 @@ class Estudiantes extends CI_Controller {
 		// 		->set_content_type('application/json')
 		// 		->set_output(json_encode($this->upload->display_errors()));
 		// }
->>>>>>> 56afbcbbc75a6784c5baa719014b13ac4eac60a3
 
 	}
 }

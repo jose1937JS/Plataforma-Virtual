@@ -21,7 +21,7 @@
 
 			<?php foreach ($publicaciones as $publicacion): ?>
 
-				<div class="card hoverable">
+				<div class="card hoverable mb-4">
 					<div class="card-body p-3">
 						<div class="small text-monospace">
 							<!-- <div class="avatar float-left" style="width: 50px">
@@ -35,14 +35,14 @@
 						</div>
 					</div>
 					
-					<ul class="list-group">
+					<!-- <ul class="list-group">
 						<li class="list-group-item">
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, dolores!
 						</li>
 						<li class="list-group-item">
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, dolores!
 						</li>
-					</ul>
+					</ul> -->
 
 					<div class="card-body py-0 border-top">
 						<?= form_open("comentar", 'class="md-form"') ?>
@@ -87,7 +87,9 @@
 						</li>
 						<li class="list-group-item">
 							<h5 class="">Profesor</h5>
-							<p class="mb-2">Jose Lopez</p>
+							<p class="mb-2">
+								<?php var_dump($publicaciones[0]) ?>
+							</p>
 						</li>
 						<li class="list-group-item">
 							<h5 class="">Otra</h5>
@@ -132,39 +134,26 @@
 			</div>
 			<div class="modal-body">
 				
-				<!-- <?php if (isset($publicaciones[0])): ?> -->
+				<?= form_open_multipart('publicar', ['class' => 'md-form']) ?>
 					
-					<?= form_open_multipart('publicar', ['class' => 'md-form']) ?>
-						
-						<input type="hidden" name="materia" value="<?= $materia ?>">
-						<input type="hidden" name="seccion" value="<?= $seccion ?>">
-						<input type="hidden" name="seccionid" value="<?= $seccionid ?>">
-						<input type="hidden" name="personaid" value="<?= $publicaciones[0]->id_persona ?>">
+					<input type="hidden" name="materia" value="<?= $materia ?>">
+					<input type="hidden" name="seccion" value="<?= $seccion ?>">
+					<input type="hidden" name="seccionid" value="<?= $seccionid ?>">
+					<input type="hidden" name="personaid" value="<?= $publicaciones[0]->id_persona ?>">
 
-						<div class="input-group">
-							<i class="fas fa-edit prefix"></i>
-							<textarea type="text" name="publicacion" id="pub" class="md-textarea form-control"></textarea>
-							<label for="pub">Write down something!</label>
-						</div>
+					<div class="input-group">
+						<i class="fas fa-pen prefix"></i>
+						<textarea type="text" name="publicacion" id="pub" class="md-textarea form-control"></textarea>
+						<label for="pub">Write down something!</label>
+					</div>
 
-						<div class="d-flex justify-content-between mt-4">
-							<div class="file-field">
-								<a class="btn-floating btn-primary mt-0 float-left">
-									<i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
-									<input type="file" name="archivos" multiple>
-								</a>
-								<div class="file-path-wrapper">
-									<input class="file-path validate" type="text" placeholder="Upload one or more files">
-								</div>
-							</div>
-
-							<button type="submit" class="btn btn-primary p-3 btn-sm">
-								<i class="fas fa-send mr-2"></i> publicar
-							</button>
-						</div>
-
-				<!-- <?php endif ?> -->
-					</form>
+					<div class="d-flex justify-content-end mt-4">
+						<button type="submit" class="btn btn-primary p-2 ">
+							<i class="fas fa-send mr-2"></i> publicar
+						</button>
+					</div>
+				
+				</form>
 
 			</div>
 		</div>
