@@ -132,34 +132,39 @@
 			</div>
 			<div class="modal-body">
 				
-				<?= form_open_multipart('publicar', ['class' => 'md-form']) ?>
+				<!-- <?php if (isset($publicaciones[0])): ?> -->
 					
-					<input type="hidden" name="materia" value="<?= $materia ?>">
-					<input type="hidden" name="seccion" value="<?= $seccion ?>">
+					<?= form_open_multipart('publicar', ['class' => 'md-form']) ?>
+						
+						<input type="hidden" name="materia" value="<?= $materia ?>">
+						<input type="hidden" name="seccion" value="<?= $seccion ?>">
+						<input type="hidden" name="seccionid" value="<?= $seccionid ?>">
+						<input type="hidden" name="personaid" value="<?= $publicaciones[0]->id_persona ?>">
 
-					<div class="input-group">
-						<i class="fas fa-edit prefix"></i>
-						<textarea type="text" name="publicacion" id="pub" class="md-textarea form-control"></textarea>
-						<label for="pub">Write down something!</label>
-					</div>
-
-					<div class="d-flex justify-content-between mt-4">
-						<div class="file-field">
-							<a class="btn-floating btn-primary mt-0 float-left">
-								<i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
-								<input type="file" name="archivos" multiple>
-							</a>
-							<div class="file-path-wrapper">
-								<input class="file-path validate" type="text" placeholder="Upload one or more files">
-							</div>
+						<div class="input-group">
+							<i class="fas fa-edit prefix"></i>
+							<textarea type="text" name="publicacion" id="pub" class="md-textarea form-control"></textarea>
+							<label for="pub">Write down something!</label>
 						</div>
 
-						<button type="submit" class="btn btn-primary p-3 btn-sm">
-							<i class="fas fa-send mr-2"></i> publicar
-						</button>
-					</div>
+						<div class="d-flex justify-content-between mt-4">
+							<div class="file-field">
+								<a class="btn-floating btn-primary mt-0 float-left">
+									<i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+									<input type="file" name="archivos" multiple>
+								</a>
+								<div class="file-path-wrapper">
+									<input class="file-path validate" type="text" placeholder="Upload one or more files">
+								</div>
+							</div>
 
-				</form>
+							<button type="submit" class="btn btn-primary p-3 btn-sm">
+								<i class="fas fa-send mr-2"></i> publicar
+							</button>
+						</div>
+
+				<!-- <?php endif ?> -->
+					</form>
 
 			</div>
 		</div>
