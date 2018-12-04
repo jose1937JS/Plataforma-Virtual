@@ -55,8 +55,8 @@ class Estudiantes extends CI_Controller {
 		$config['upload_path']   = './application/third_party/';
 		$config['max_size']	     = '11264'; // 11 megas * 1024
 		$config['allowed_types'] = 'txt|doc|docx|xls|csv|odp|odg|ppxs|otp||png|jpg|jpeg|gif|ppt|xlxs|ods|sql|php|html|xml|css|js|py|cpp|java|pdf';
-
-		$this->load->library('upload', $config);
+		//Ella no te ama mrc
+		$this->load->library('upload_path', $config);
 
 		if ( $this->upload->do_upload('archivos') )
 		{
