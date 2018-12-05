@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 02-12-2018 a las 23:11:56
+-- Tiempo de generación: 04-12-2018 a las 22:33:07
 -- Versión del servidor: 5.5.58-0ubuntu0.14.04.1
 -- Versión de PHP: 7.1.14-1+ubuntu14.04.1+deb.sury.org+1
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `plataforma-virtual`
 --
+CREATE DATABASE IF NOT EXISTS `plataforma-virtual` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+USE `plataforma-virtual`;
 
 -- --------------------------------------------------------
 
@@ -121,7 +123,8 @@ CREATE TABLE `Personas` (
 --
 
 INSERT INTO `Personas` (`id_persona`, `nombre`, `apellido`, `correo`, `telefono`, `foto_perfil`) VALUES
-(1, 'Jose Fernando', 'Lopez Ortiz', 'jose@lopez.com', '05151111112', '');
+(1, 'Jose Fernando', 'Lopez Ortiz', 'jose@lopez.com', '05151111112', ''),
+(2, 'Cesar', 'Pdrino', 'cesarpa@gmail.com', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -141,7 +144,24 @@ CREATE TABLE `PersonaSecciones` (
 
 INSERT INTO `PersonaSecciones` (`id_persecc`, `persona_id`, `seccion_id`) VALUES
 (1, 1, 1),
-(2, 1, 2);
+(2, 1, 2),
+(3, 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `Profesores`
+--
+
+CREATE TABLE `Profesores` (
+  `id_profesor` int(11) NOT NULL,
+  `nombre` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `apellido` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `telefono` varchar(32) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `correo` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `nivel_academico` varchar(64) COLLATE utf8_spanish_ci NOT NULL,
+  `seccion_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -175,7 +195,8 @@ CREATE TABLE `Publicaciones` (
 --
 
 INSERT INTO `Publicaciones` (`id_publicacion`, `publicacion`, `archivo`, `fecha`, `seccion_id`, `persona_id`) VALUES
-(3, 'esto es una publicacion, hola mundo!!', NULL, '15-07-2018 17:11:09', 1, 1);
+(7, 'hola q jhace', NULL, '14-12-1002 12:22:44', 1, 2),
+(8, 'hoal q ltaocoaldas adasd i loveuforoo', NULL, '04-12-2018 22:31:11', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -228,7 +249,8 @@ CREATE TABLE `Usuarios` (
 --
 
 INSERT INTO `Usuarios` (`id_usuario`, `usuario`, `clave`, `tipo`, `persona_id`) VALUES
-(1, 'jose', 'jose', 'profesor', 1);
+(1, 'jose', 'jose', 'profesor', 1),
+(2, 'cesar', 'cesar', 'alumno', 2);
 
 --
 -- Índices para tablas volcadas
@@ -275,6 +297,13 @@ ALTER TABLE `Personas`
 ALTER TABLE `PersonaSecciones`
   ADD PRIMARY KEY (`id_persecc`),
   ADD KEY `persona_id` (`persona_id`),
+  ADD KEY `seccion_id` (`seccion_id`);
+
+--
+-- Indices de la tabla `Profesores`
+--
+ALTER TABLE `Profesores`
+  ADD PRIMARY KEY (`id_profesor`),
   ADD KEY `seccion_id` (`seccion_id`);
 
 --
@@ -342,12 +371,17 @@ ALTER TABLE `PersonaMaterias`
 -- AUTO_INCREMENT de la tabla `Personas`
 --
 ALTER TABLE `Personas`
-  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `PersonaSecciones`
 --
 ALTER TABLE `PersonaSecciones`
-  MODIFY `id_persecc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_persecc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `Profesores`
+--
+ALTER TABLE `Profesores`
+  MODIFY `id_profesor` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `PubicacionComentarios`
 --
@@ -357,7 +391,7 @@ ALTER TABLE `PubicacionComentarios`
 -- AUTO_INCREMENT de la tabla `Publicaciones`
 --
 ALTER TABLE `Publicaciones`
-  MODIFY `id_publicacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_publicacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `Secciones`
 --
@@ -372,7 +406,7 @@ ALTER TABLE `Temas`
 -- AUTO_INCREMENT de la tabla `Usuarios`
 --
 ALTER TABLE `Usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Restricciones para tablas volcadas
 --
@@ -403,6 +437,12 @@ ALTER TABLE `PersonaMaterias`
 ALTER TABLE `PersonaSecciones`
   ADD CONSTRAINT `PersonaSecciones_ibfk_1` FOREIGN KEY (`persona_id`) REFERENCES `Personas` (`id_persona`),
   ADD CONSTRAINT `PersonaSecciones_ibfk_2` FOREIGN KEY (`seccion_id`) REFERENCES `Secciones` (`id_seccion`);
+
+--
+-- Filtros para la tabla `Profesores`
+--
+ALTER TABLE `Profesores`
+  ADD CONSTRAINT `Profesores_ibfk_1` FOREIGN KEY (`seccion_id`) REFERENCES `Secciones` (`id_seccion`);
 
 --
 -- Filtros para la tabla `PubicacionComentarios`

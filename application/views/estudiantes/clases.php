@@ -2,14 +2,7 @@
 	<div class="card mb-5  text-center jumbotron">
 		<div class="card-body">
 
-
- 			<?php if ( isset($publicaciones[0]) ): ?>
-				<h1><?= $publicaciones[0]->materia.' - '.$publicaciones[0]->seccion ?></h1>
-			
-			<?php else: ?>
-			
-				<h1>No hay nada para mostrar.</h1>
-			<?php endif ?>
+ 			<h1><?= $materia.' - '.$seccion ?></h1>
 		
 		</div>
 	</div>
@@ -139,7 +132,7 @@
 					<input type="hidden" name="materia" value="<?= $materia ?>">
 					<input type="hidden" name="seccion" value="<?= $seccion ?>">
 					<input type="hidden" name="seccionid" value="<?= $seccionid ?>">
-					<input type="hidden" name="personaid" value="<?= $publicaciones[0]->id_persona ?>">
+					<input type="hidden" name="personaid" value="<?= $personaid[0]->id_persona ?>">
 
 					<div class="input-group">
 						<i class="fas fa-pen prefix"></i>

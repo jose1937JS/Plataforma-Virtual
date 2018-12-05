@@ -30,16 +30,34 @@ class EstudiantesModel extends CI_Model {
 				->get()->result();
 	}
 
+	public function getIdPersona($user)
+	{
+		return $this->db->select('Personas.id_persona')
+				->from('Usuarios')
+				->join('Personas', 'Personas.id_persona = Usuarios.persona_id')
+				->where('Usuarios.usuario', $user)
+				->get()->result();
+	}
+
 	public function getPublicaciones($seccid)
 	{
-		return $this->db->select('Publicaciones.publicacion, Publicaciones.archivo, Publicaciones.fecha, Publicaciones.seccion_id, Materias.materia, Personas.id_persona, Personas.nombre, Personas.apellido, Secciones.seccion, Usuarios.tipo')
+		return $this->db->select('Publicaciones.publicacion, Publicaciones.archivo, Publicaciones.fecha, Publicaciones.seccion_id, Materias.materia, Personas.nombre, Personas.apellido, Secciones.seccion')
 				->from('Publicaciones')
 				->join('Secciones', 'Secciones.id_seccion = Publicaciones.seccion_id')
 				->join('Materias', 'Materias.id_materia = Secciones.materia_id')
 				->join('Personas', 'Personas.id_persona = Publicaciones.persona_id')
-				->join('Usuarios', 'Usuarios.persona_id = Personas.id_persona')
 				->where('Publicaciones.seccion_id', $seccid)
 				->get()->result();
+
+
+		// return $this->db->select('Publicaciones.publicacion, Publicaciones.archivo, Publicaciones.fecha, Publicaciones.seccion_id, Materias.materia, Personas.id_persona, Personas.nombre, Personas.apellido, Secciones.seccion, Usuarios.tipo')
+		// 		->from('Publicaciones')
+		// 		->join('Secciones', 'Secciones.id_seccion = Publicaciones.seccion_id')
+		// 		->join('Materias', 'Materias.id_materia = Secciones.materia_id')
+		// 		->join('Personas', 'Personas.id_persona = Publicaciones.persona_id')
+		// 		->join('Usuarios', 'Usuarios.persona_id = Personas.id_persona')
+		// 		->where('Publicaciones.seccion_id', $seccid)
+		// 		->get()->result();
 	}
 
 	public function publicar($texto, $seccionid, $personaid)

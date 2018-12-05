@@ -1,4 +1,4 @@
-<div class="card ">
+w<div class="card ">
 	<div class="card-body p-3">
 		<div class="small text-monospace">
 			<!-- <div class="avatar float-left" style="width: 50px">

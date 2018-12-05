@@ -21,12 +21,13 @@ class Estudiantes extends CI_Controller {
 	public function materias($materia, $seccion)
 	{
 		$user = $this->session->userdata('sesion');
-
 		$seccionid = $this->EstudiantesModel->getSeccId($materia, $seccion);
 
 		$data['publicaciones'] = $this->EstudiantesModel->getPublicaciones($seccionid[0]->id_seccion);
-		$data['materia'] = $materia;
-		$data['seccion'] = $seccion;
+		$data['personaid']     = $this->EstudiantesModel->getIdPersona($user['usuario']);
+
+		$data['materia']   = $materia;
+		$data['seccion']   = $seccion;
 		$data['seccionid'] = $seccionid[0]->id_seccion;
 
 		$this->load->view('includes/header');
@@ -52,10 +53,13 @@ class Estudiantes extends CI_Controller {
 		$materia 	= $this->input->post('materia');
 		$seccion 	= $this->input->post('seccion');
 		$seccionid  = $this->input->post('seccionid');
-		$personaid  = $this->input->post('personaid');
+
+		$persona 	= $this->session->userdata('sesion');
+		$personaid  = $this->EstudiantesModel->getIdPersona($persona['usuario']);
+
 		$texto   	= $this->input->post('publicacion');
 
-		$this->EstudiantesModel->publicar($texto, $seccionid, $personaid);
+		$this->EstudiantesModel->publicar($texto, $seccionid, $personaid[0]->id_persona);
 
 		redirect("estudiante/$materia/$seccion");
 
