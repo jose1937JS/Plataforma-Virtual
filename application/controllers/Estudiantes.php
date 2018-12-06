@@ -37,11 +37,34 @@ class Estudiantes extends CI_Controller {
 
 	public function comentar()
 	{
-		$comentario = $this->input->post('comentario');
-		$materia 	= $this->input->post('materia');
-		$seccion 	= $this->input->post('seccion');
+		$comentario    = $this->input->post('comentario');
+		$personaid     = $this->input->post('persona');
+		$publicacionid = $this->input->post('publicacion');
 
-		$this->EstudiantesModel->comentar($comentario);
+		$config['upload_path']   = './application/third_party/';
+		$config['max_size']	     = '11264'; // 11 megas * 1024
+		$config['allowed_types'] = 'txt|doc|docx|xls|csv|odp|odg|ppxs|otp|png|jpg|jpeg|gif|ppt|xlxs|ods|sql|php|html|xml|css|js|py|cpp|java|pdf';
+
+		$this->load->library('upload', $config);
+
+		if ( $this->upload->do_upload('archivo') )
+		{
+			$files = $this->upload->data();
+
+			$filename = $files['file_name'].date('dmYHis');
+
+			$this->EstudiantesModel->comentar($comentario, $filename, $personaid, $publicacionid);
+
+			redirect("publicacion/$publicacionid");
+		}
+		else
+		{
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($this->upload->display_errors()));
+		}
+
+		$this->EstudiantesModel->comentar($comentario, '', $personaid, $publicacionid);
 
 		redirect("estudiante/$materia/$seccion");
 	}
@@ -63,34 +86,18 @@ class Estudiantes extends CI_Controller {
 
 		redirect("estudiante/$materia/$seccion");
 
-		// $config['upload_path']   = './application/third_party/';
-		// $config['max_size']	     = '11264'; // 11 megas * 1024
-		// $config['allowed_types'] = 'txt|doc|docx|xls|csv|odp|odg|ppxs|otp||png|jpg|jpeg|gif|ppt|xlxs|ods|sql|php|html|xml|css|js|py|cpp|java|pdf';
-
-		// $this->load->library('upload', $config);
-
-		// if ( $this->upload->do_upload('archivos') )
-		// {
-		// 	$files = $this->upload->data();
-		// 	$this->EstudiantesModel->publicar($texto);
-
-		// 	redirect("estudiante/$materia/$seccion");
-		// }
-		// else
-		// {
-		// 	$this->EstudiantesModel->publicar($texto);
-
-		// 	$this->output
-		// 		->set_content_type('application/json')
-		// 		->set_output(json_encode($this->upload->display_errors()));
-		// }
-
 	}
 
 	public function publicacion($id)
 	{
 		$data['publicacion'] = $this->EstudiantesModel->getPublicacion($id);
 		$data['comentarios'] = $this->EstudiantesModel->getComentarios($id);
+		$data['idpub']	   	 = $id;
+
+		$persona 	= $this->session->userdata('sesion');
+		$personaid  = $this->EstudiantesModel->getIdPersona($persona['usuario']);
+
+		$data['idpersona'] = $personaid;
 
 		$this->load->view('includes/header');
 		$this->load->view('estudiantes/publicacion', $data);

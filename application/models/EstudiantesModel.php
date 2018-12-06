@@ -80,8 +80,22 @@ class EstudiantesModel extends CI_Model {
 		]);
 	}
 
-	public function comentar($comentario)
+	public function comentar($comentario, $archivo, $personaid, $publicacionid)
 	{
+		$this->db->insert('Comentarios', [
+			'comentario' => $comentario,
+			'archivo'    => $archivo,
+			'fecha' 	 => date('d-m-Y H:i:s'),
+			'persona_id' => $personaid
+		]);
 
+		$comentarioid = $this->db->select('MAX(id_comentario) as id')
+				->from('Comentarios')
+				->get()->result();
+
+		$this->db->insert('PubicacionComentarios', [
+			'publicacion_id' => $publicacionid,
+			'comentario_id'  => $comentarioid[0]->id
+		]);
 	}
 }

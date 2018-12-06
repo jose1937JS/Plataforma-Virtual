@@ -46,7 +46,7 @@
 							<div class="form-row">
 								<div class="col-11">
 									<input type="text" id="comment" class="form-control">
-									<label for="comment">Haz un comentario</label>
+									<label for="comment">Escribe tu comentario...</label> 
 								</div>
 								<div class="col-1">
 									<button class="btn btn-sm btn-primary px-3" data-toggle="tooltip" title="Enviar respuesta">

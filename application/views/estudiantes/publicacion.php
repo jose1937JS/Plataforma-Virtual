@@ -31,16 +31,34 @@
 				<div class="card-body py-0 border-top">
 					<?= form_open("comentar", 'class="md-form"') ?>
 
+						<input type="hidden" name="publicacion" value="<?= $idpub ?>">
+						<input type="hidden" name="persona" value="<?= $idpersona[0]->id_persona ?>">
 
-						<div class="form-row">
-							<div class="col-11">
-								<input type="text" id="comment" class="form-control">
-								<label for="comment">Haz un comentario</label>
+						<div class="form-row mb-4">
+							<div class="col">
+								<input type="text" id="comment" name="comentario" class="form-control">
+								<label for="comment">Escribe un comentario ...</label>
 							</div>
-							<div class="col-1">
-								<button class="btn btn-sm btn-primary px-3" data-toggle="tooltip" title="Enviar respuesta">
-									<i class="fas fa-paper-plane"></i>
-								</button>
+						</div>
+						<div class="row">
+							<div class="col">
+								
+								<div class="d-flex justify-content-between">
+									<div class="file-field">
+										<a class="btn-floating btn-primary mt-0 float-left">
+											<i class="fa fa-paperclip" aria-hidden="true"></i>
+											<input type="file">
+										</a>
+										<div class="file-path-wrapper">
+											<input class="file-path validate" type="text" placeholder="Upload your file">
+										</div>
+									</div>
+									<div class="col-1">
+										<button class="btn btn-sm btn-primary px-3" data-toggle="tooltip" title="Enviar respuesta">
+											<i class="fas fa-paper-plane"></i>
+										</button>
+									</div>
+								</div>
 							</div>
 						</div>
 					</form>
