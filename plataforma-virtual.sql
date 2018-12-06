@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 04-12-2018 a las 22:33:07
+-- Tiempo de generación: 05-12-2018 a las 23:28:52
 -- Versión del servidor: 5.5.58-0ubuntu0.14.04.1
 -- Versión de PHP: 7.1.14-1+ubuntu14.04.1+deb.sury.org+1
 
@@ -174,6 +174,13 @@ CREATE TABLE `PubicacionComentarios` (
   `publicacion_id` int(11) NOT NULL,
   `comentario_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `PubicacionComentarios`
+--
+
+INSERT INTO `PubicacionComentarios` (`id_pubcomen`, `publicacion_id`, `comentario_id`) VALUES
+(1, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -386,7 +393,7 @@ ALTER TABLE `Profesores`
 -- AUTO_INCREMENT de la tabla `PubicacionComentarios`
 --
 ALTER TABLE `PubicacionComentarios`
-  MODIFY `id_pubcomen` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pubcomen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `Publicaciones`
 --
