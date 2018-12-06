@@ -86,4 +86,14 @@ class Estudiantes extends CI_Controller {
 		// }
 
 	}
+
+	public function publicacion($id)
+	{
+		$data['publicacion'] = $this->EstudiantesModel->getPublicacion($id);
+		$data['comentarios'] = $this->EstudiantesModel->getComentarios($id);
+
+		$this->load->view('includes/header');
+		$this->load->view('estudiantes/publicacion', $data);
+		$this->load->view('includes/footer');
+	}
 }

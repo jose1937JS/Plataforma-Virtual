@@ -62,3 +62,5 @@ $route['estudiante/([a-zA-Z]+)/([A-Z])'] = 'estudiantes/materias/$1/$2';
 
 $route['comentar']['post']		 = 'estudiantes/comentar';
 $route['publicar']['post']		 = 'estudiantes/publicar';
+
+$route['publicacion/(:num)']	 = 'estudiantes/publicacion/$1';

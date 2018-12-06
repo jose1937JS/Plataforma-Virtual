@@ -24,7 +24,7 @@
 						</div>
 						<p class="mt-4"><?= $publicacion->publicacion ?></p>
 						<div class="d-flex justify-content-end">
-							<span class="small">4 comentarios.</span>
+							<?= anchor("publicacion/$publicacion->id_publicacion", 'Ver publicacion', 'class="small"') ?>
 						</div>
 					</div>
 					
@@ -132,7 +132,7 @@
 					<input type="hidden" name="materia" value="<?= $materia ?>">
 					<input type="hidden" name="seccion" value="<?= $seccion ?>">
 					<input type="hidden" name="seccionid" value="<?= $seccionid ?>">
-					<input type="hidden" name="personaid" value="<?= $personaid[0]->id_persona ?>">
+					<input type="hidden" name="personaid" value="<?= $personaid[0]->id_persona ?>"> 
 
 					<div class="input-group">
 						<i class="fas fa-pen prefix"></i>
