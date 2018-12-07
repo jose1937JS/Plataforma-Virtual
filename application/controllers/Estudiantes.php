@@ -43,15 +43,14 @@ class Estudiantes extends CI_Controller {
 
 		$config['upload_path']   = './application/third_party/';
 		$config['max_size']	     = '11264'; // 11 megas * 1024
-		$config['allowed_types'] = 'txt|doc|docx|xls|csv|odp|odg|ppxs|otp|png|jpg|jpeg|gif|ppt|xlxs|ods|sql|php|html|xml|css|js|py|cpp|java|pdf';
+		$config['allowed_types'] = 'txt|doc|docx|xls|csv|odp|odg|ppxs|otp|png|ico|jpg|jpeg|gif|ppt|xlxs|ods|sql|php|html|xml|css|js|py|cpp|java|pdf';
 
 		$this->load->library('upload', $config);
 
 		if ( $this->upload->do_upload('archivo') )
 		{
-			$files = $this->upload->data();
-
-			$filename = $files['file_name'].date('dmYHis');
+			$files    = $this->upload->data();
+			$filename = $files['file_name'];
 
 			$this->EstudiantesModel->comentar($comentario, $filename, $personaid, $publicacionid);
 
@@ -59,14 +58,16 @@ class Estudiantes extends CI_Controller {
 		}
 		else
 		{
-			$this->output
-				->set_content_type('application/json')
-				->set_output(json_encode($this->upload->display_errors()));
+			$this->EstudiantesModel->comentar($comentario, '', $personaid, $publicacionid);
+			
+			die($this->upload->display_errors());
+			// $this->output
+			// 	->set_content_type('application/json')
+			// 	->set_output(json_encode($this->upload->display_errors()));
 		}
 
-		$this->EstudiantesModel->comentar($comentario, '', $personaid, $publicacionid);
 
-		redirect("estudiante/$materia/$seccion");
+		redirect("publicacion/$publicacionid");
 	}
 
 	public function publicar()

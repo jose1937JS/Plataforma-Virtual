@@ -16,20 +16,26 @@
 					</div>
 				</div>
 				
-					
 					<ul class="list-group">
 						
 						<?php foreach ($comentarios as $comentario): ?>
 							<li class="list-group-item">
-								<?= $comentario->comentario ?>
+								<p><?= $comentario->comentario ?></p>
+								
+								<?php if ( $comentario->archivo != '' ): ?>
+									<div class="view overlay zoom ">
+										<img style="max-width: 600px" class="img-fluid img-thumbnail" src='<?= base_url("application/third_party/").$comentario->archivo ?>'>
+										<div class="mask flex-center waves-effect"></div>
+									</div>
+								<?php endif ?>
+
 							</li>
 						<?php endforeach ?>
 					
 					</ul>
-				
 
 				<div class="card-body py-0 border-top">
-					<?= form_open("comentar", 'class="md-form"') ?>
+					<?= form_open_multipart("comentar", 'class="md-form"') ?>
 
 						<input type="hidden" name="publicacion" value="<?= $idpub ?>">
 						<input type="hidden" name="persona" value="<?= $idpersona[0]->id_persona ?>">
@@ -47,7 +53,7 @@
 									<div class="file-field">
 										<a class="btn-floating btn-primary mt-0 float-left">
 											<i class="fa fa-paperclip" aria-hidden="true"></i>
-											<input type="file">
+											<input type="file" name="archivo">
 										</a>
 										<div class="file-path-wrapper">
 											<input class="file-path validate" type="text" placeholder="Upload your file">
