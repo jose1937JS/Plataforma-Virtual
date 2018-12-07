@@ -61,7 +61,7 @@ class EstudiantesModel extends CI_Model {
 
 	public function getComentarios($id)
 	{
-		return $this->db->select('Comentarios.comentario, Comentarios.archivo, Comentarios.fecha, Personas.nombre, Personas.apellido')
+		return $this->db->select('Comentarios.id_comentario, Comentarios.comentario, Comentarios.archivo, Comentarios.fecha, Personas.nombre, Personas.apellido')
 				->from('PubicacionComentarios')
 				->join('Comentarios', 'Comentarios.id_comentario = PubicacionComentarios.comentario_id')
 				->join('Personas', 'Personas.id_persona = Comentarios.persona_id')
@@ -97,5 +97,13 @@ class EstudiantesModel extends CI_Model {
 			'publicacion_id' => $publicacionid,
 			'comentario_id'  => $comentarioid[0]->id
 		]);
+	}
+
+	public function comentario($id)
+	{
+		return $this->db->select('Comentarios.comentario')
+				->from('Comentarios')
+				->where('Comentarios.id_comentario', $id)
+				->get()->result();
 	}
 }

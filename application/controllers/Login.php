@@ -38,7 +38,7 @@ class Login extends CI_Controller {
 			}
 			else {
 				$this->session->set_flashdata('badpass', 'Contraseña incorrecta');
-				redirect('');
+				redirect()
 			}
 		} 
 		else {

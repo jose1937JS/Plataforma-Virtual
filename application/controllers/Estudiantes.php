@@ -10,12 +10,18 @@ class Estudiantes extends CI_Controller {
 
 	public function index()
 	{
-		$user = $this->session->userdata('sesion');
-		$data['materias'] = $this->EstudiantesModel->getMaterias($user['usuario']);
+		if ( $this->session->has_userdata('sesion') )
+		{
+			$user = $this->session->userdata('sesion');
+			$data['materias'] = $this->EstudiantesModel->getMaterias($user['usuario']);
 
-		$this->load->view('includes/header');
-		$this->load->view('estudiantes/estudiantes', $data);
-		$this->load->view('includes/footer');
+			$this->load->view('includes/header');
+			$this->load->view('estudiantes/estudiantes', $data);
+			$this->load->view('includes/footer');
+		}
+		else {
+			redirect('');
+		}
 	}
 
 	public function materias($materia, $seccion)
@@ -60,7 +66,6 @@ class Estudiantes extends CI_Controller {
 		{
 			$this->EstudiantesModel->comentar($comentario, '', $personaid, $publicacionid);
 			
-			die($this->upload->display_errors());
 			// $this->output
 			// 	->set_content_type('application/json')
 			// 	->set_output(json_encode($this->upload->display_errors()));
@@ -91,17 +96,33 @@ class Estudiantes extends CI_Controller {
 
 	public function publicacion($id)
 	{
-		$data['publicacion'] = $this->EstudiantesModel->getPublicacion($id);
-		$data['comentarios'] = $this->EstudiantesModel->getComentarios($id);
-		$data['idpub']	   	 = $id;
+		if( $this->session->has_userdata('sesion') )
+		{
+			$data['publicacion'] = $this->EstudiantesModel->getPublicacion($id);
+			$data['comentarios'] = $this->EstudiantesModel->getComentarios($id);
+			$data['idpub']	   	 = $id;
 
-		$persona 	= $this->session->userdata('sesion');
-		$personaid  = $this->EstudiantesModel->getIdPersona($persona['usuario']);
+			$persona 	= $this->session->userdata('sesion');
+			$personaid  = $this->EstudiantesModel->getIdPersona($persona['usuario']);
 
-		$data['idpersona'] = $personaid;
+			$data['idpersona'] = $personaid;
 
-		$this->load->view('includes/header');
-		$this->load->view('estudiantes/publicacion', $data);
-		$this->load->view('includes/footer');
+			$this->load->view('includes/header');
+			$this->load->view('estudiantes/publicacion', $data);
+			$this->load->view('includes/footer');
+		}
+		else {
+			redirect('');
+		}
+	}
+
+	public function returndatamodal()
+	{
+		$id   = $this->input->post('id');
+		$data = $this->EstudiantesModel->comentario($id);
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($data));
 	}
 }

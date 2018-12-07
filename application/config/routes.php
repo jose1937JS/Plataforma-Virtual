@@ -64,3 +64,5 @@ $route['comentar']['post']		 = 'estudiantes/comentar';
 $route['publicar']['post']		 = 'estudiantes/publicar';
 
 $route['publicacion/(:num)']	 = 'estudiantes/publicacion/$1';
+
+$route['getdatamodal']['post']	 = 'estudiantes/returndatamodal';

@@ -8,31 +8,68 @@
 						<!-- <div class="avatar float-left" style="width: 50px">
 							<img src="<?= base_url('application') ?>/assets/img (28)-mini.jpg" alt="avatar" class="rounded-circle img-fluid">
 						</div> -->
-						<p class="pt-4"><?= $publicacion[0]->nombre ?> <i><?= $publicacion[0]->fecha ?></i></p>
+						<p class="pt-4 font-weight-bold"><?= $publicacion[0]->nombre.' '.$publicacion[0]->apellido ?> <i><?= $publicacion[0]->fecha ?></i></p>
 					</div>
 					<p class="mt-4"><?= $publicacion[0]->publicacion ?></p>
 					<div class="d-flex justify-content-end">
 						<span class="small"><?= count($comentarios) ?> Comentarios.</span>
 					</div>
 				</div>
-				
-					<ul class="list-group">
-						
-						<?php foreach ($comentarios as $comentario): ?>
-							<li class="list-group-item">
-								<p><?= $comentario->comentario ?></p>
-								
-								<?php if ( $comentario->archivo != '' ): ?>
-									<div class="view overlay zoom ">
-										<img style="max-width: 600px" class="img-fluid img-thumbnail" src='<?= base_url("application/third_party/").$comentario->archivo ?>'>
-										<div class="mask flex-center waves-effect"></div>
-									</div>
-								<?php endif ?>
 
-							</li>
-						<?php endforeach ?>
+				<ul class="list-group">
 					
-					</ul>
+					<?php foreach( $comentarios as $comentario ): ?>
+
+						<li class="list-group-item">
+							<div class="d-flex justify-content-between small text-monospace">
+								<p class="font-weight-bold"><?= $comentario->nombre.' '.$comentario->apellido ?></p>
+								<p class="blue-grey-text"><?= $comentario->fecha ?></p>
+							</div>
+							<p><?= $comentario->comentario ?></p>
+							
+							<?php if( $comentario->archivo != '' ): ?>
+								<div class="view overlay zoom">
+									<img style="max-width: 600px" class="img-fluid img-thumbnail" src='<?= base_url("application/third_party/").$comentario->archivo ?>'>
+									<div class="mask flex-center waves-effect"></div>
+								</div>
+							<?php endif ?>
+							
+							<!-- acciones del comentario -->
+							<div class="small mt-3">
+								<a href="#"><i class="fas fa-trash"></i> Eliminar</a>
+								<a href="#editar" data-toggle="modal" data-id="<?= $comentario->id_comentario ?>" class="ml-3 edit"><i class="fas fa-edit"></i> Editar</a>
+							</div>
+
+						</li>
+					<?php endforeach ?>
+				
+				</ul>
+				
+				<!-- Modal para editar -->
+				<div class="modal fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Editar comentario</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<?= form_open('editcomment') ?>
+								<div class="modal-body">
+									<div class="md-form">
+										<input type="text" id="comment" class="form-control">
+										<label for="comment">Edita tu comentario</label>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
+									<button type="button" class="btn btn-primary btn-sm">Editar</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
 
 				<div class="card-body py-0 border-top">
 					<?= form_open_multipart("comentar", 'class="md-form"') ?>
