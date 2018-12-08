@@ -36,7 +36,7 @@
 							
 							<!-- acciones del comentario -->
 							<div class="small mt-3">
-								<a href="#"><i class="fas fa-trash"></i> Eliminar</a>
+								<a href="#eliminar" class="del" data-id="<?= $comentario->id_comentario ?>" data-toggle="modal"><i class="fas fa-trash"></i> Eliminar</a>
 								<a href="#editar" data-toggle="modal" data-id="<?= $comentario->id_comentario ?>" class="ml-3 edit"><i class="fas fa-edit"></i> Editar</a>
 							</div>
 
@@ -56,15 +56,46 @@
 								</button>
 							</div>
 							<?= form_open('editcomment') ?>
+
+								<input type="hidden" name="idcomentario" id="idcomentario">
+								<input type="hidden" name="idpub" value="<?= $idpub ?>">
+
 								<div class="modal-body">
 									<div class="md-form">
-										<input type="text" id="comment" class="form-control">
+										<input type="text" id="comment" name="comment" class="form-control" autofocus="">
 										<label for="comment">Edita tu comentario</label>
 									</div>
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
-									<button type="button" class="btn btn-primary btn-sm">Editar</button>
+									<button type="submit" class="btn btn-primary btn-sm">Editar</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<!-- MOdal para eliminar -->
+				<div class="modal fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Eliminar comentario</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<?= form_open('eliminarcomment') ?>
+
+								<input type="hidden" name="idcomentario" id="idcomment">
+								<input type="hidden" name="idpub" value="<?= $idpub ?>">
+
+								<div class="modal-body">
+									<p>¿Está seguro que desea eliminar éste comentario?</p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
+									<button type="submit" class="btn btn-primary btn-sm">eliminar</button>
 								</div>
 							</form>
 						</div>

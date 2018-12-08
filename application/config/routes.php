@@ -1,5 +1,4 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -49,20 +48,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] 	 = 'login';
-$route['404_override'] 			 = '';
-$route['translate_uri_dashes']   = FALSE;
 
-$route['login'] 				 = 'login/login';
-$route['logout']				 = 'login/logout';
-$route['profesor']			     = 'profesores';
-$route['estudiante']  			 = 'estudiantes';
+$route['default_controller'] 	  = 'login';
+$route['404_override'] 			  = '';
+$route['translate_uri_dashes']    = FALSE;
+
+$route['login'] 				  = 'login/login';
+$route['logout']				  = 'login/logout';
+$route['profesor']			      = 'profesores';
+$route['estudiante']  			  = 'estudiantes';
 
 $route['estudiante/([a-zA-Z]+)/([A-Z])'] = 'estudiantes/materias/$1/$2';
 
-$route['comentar']['post']		 = 'estudiantes/comentar';
-$route['publicar']['post']		 = 'estudiantes/publicar';
+$route['comentar']['post']		  = 'estudiantes/comentar';
+$route['publicar']['post']		  = 'estudiantes/publicar';
 
-$route['publicacion/(:num)']	 = 'estudiantes/publicacion/$1';
+$route['publicacion/(:num)']	  = 'estudiantes/publicacion/$1';
 
-$route['getdatamodal']['post']	 = 'estudiantes/returndatamodal';
+$route['getdatamodal']['post']	  = 'estudiantes/returndatamodal';
+$route['editcomment']['post']	  = 'estudiantes/editcomment';
+$route['eliminarcomment']['post'] = 'estudiantes/eliminarcomment';

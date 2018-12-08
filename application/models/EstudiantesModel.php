@@ -101,9 +101,29 @@ class EstudiantesModel extends CI_Model {
 
 	public function comentario($id)
 	{
-		return $this->db->select('Comentarios.comentario')
+		return $this->db->select('Comentarios.comentario, Comentarios.id_comentario')
 				->from('Comentarios')
 				->where('Comentarios.id_comentario', $id)
 				->get()->result();
+	}
+
+	public function editcomment($comentario, $idcomentario)
+	{
+		$this->db->where('id_comentario', $idcomentario);
+
+		$this->db->update('Comentarios', [
+			'comentario' => $comentario,
+			'fecha'	 	 => date('d-m-Y H:i:s')
+		]);
+	}
+
+	public function eliminarcomment($idcomment)
+	{
+		$this->db->where('comentario_id', $idcomment)
+				->delete('PubicacionComentarios');
+				
+		$this->db->where('id_comentario', $idcomment)
+				->delete('Comentarios');
+
 	}
 }

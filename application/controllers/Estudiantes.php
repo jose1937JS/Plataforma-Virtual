@@ -116,6 +116,27 @@ class Estudiantes extends CI_Controller {
 		}
 	}
 
+	public function editcomment()
+	{
+		$comentario   = $this->input->post('comment');
+		$idcomentario = $this->input->post('idcomentario');
+		$idpub		  = $this->input->post('idpub');
+
+		$this->EstudiantesModel->editcomment($comentario, $idcomentario);
+
+		redirect("publicacion/$idpub");
+	}
+
+	public function eliminarcomment()
+	{
+		$idcomentario = $this->input->post('idcomentario');
+		$idpub		  = $this->input->post('idpub');
+
+		$this->EstudiantesModel->eliminarcomment($idcomentario);
+
+		redirect("publicacion/$idpub");
+	}
+
 	public function returndatamodal()
 	{
 		$id   = $this->input->post('id');
