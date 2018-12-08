@@ -146,4 +146,15 @@ class Estudiantes extends CI_Controller {
 			->set_content_type('application/json')
 			->set_output(json_encode($data));
 	}
+
+	public function eliminarpub()
+	{
+		$idpub   = $this->input->post('idpub');
+		$materia = $this->input->post('materia');
+		$seccion = $this->input->post('seccion');
+
+		$this->EstudiantesModel->eliminarpub($idpub);
+
+		redirect("estudiante/$materia/$seccion");
+	}
 }

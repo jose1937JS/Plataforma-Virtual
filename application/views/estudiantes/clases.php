@@ -23,19 +23,13 @@
 							<p class="pt-4"><?= $publicacion->nombre ?> <i><?= $publicacion->fecha ?></i></p>
 						</div>
 						<p class="mt-4"><?= $publicacion->publicacion ?></p>
-						<div class="d-flex justify-content-end">
-							<?= anchor("publicacion/$publicacion->id_publicacion", 'Ver publicacion', 'class="small"') ?>
+						<div class="d-flex justify-content-end small">
+
+							<a href="#delpub" class="delpub mr-3" data-id="<?= $publicacion->id_publicacion ?>" data-toggle="modal"><i class="fas fa-trash"></i> Eliminar</a>
+							<?= anchor("publicacion/$publicacion->id_publicacion", '<i class="fas fa-eye"></i> Ver publicacion') ?>
+						
 						</div>
 					</div>
-					
-					<!-- <ul class="list-group">
-						<li class="list-group-item">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, dolores!
-						</li>
-						<li class="list-group-item">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, dolores!
-						</li>
-					</ul> -->
 
 					<div class="card-body py-0 border-top">
 						<?= form_open("comentar", 'class="md-form"') ?>
@@ -67,6 +61,35 @@
 					</div>
 				</div>
 			<?php endif ?>
+
+			<!-- MODAL PARA ELIMINAR PUBLICCION -->
+			<div class="modal fade" id="delpub" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Eliminar publicación</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<?= form_open('eliminarpub') ?>
+
+							<input type="hidden" name="idpub" id="idpub">
+							<input type="hidden" name="materia" value="<?= $materia ?>">
+							<input type="hidden" name="seccion" value="<?= $seccion ?>">
+
+							<div class="modal-body">
+								<p>¿Está seguro que desea eliminar ésta publicación?</p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
+								<button type="submit" class="btn btn-primary btn-sm">eliminar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
 
 		</div>
 

@@ -23,7 +23,10 @@ $(() => {
 	})
 
 	$('.del').click((e) => {
-
 		$('#idcomment').val(e.target.dataset.id)
+	})
+
+	$('.delpub').click((e) => {
+		$('#idpub').val(e.target.dataset.id)
 	})
 })

@@ -47,6 +47,7 @@ class EstudiantesModel extends CI_Model {
 				->join('Materias', 'Materias.id_materia = Secciones.materia_id')
 				->join('Personas', 'Personas.id_persona = Publicaciones.persona_id')
 				->where('Publicaciones.seccion_id', $seccid)
+				->order_by('Publicaciones.id_publicacion', 'desc')
 				->get()->result();
 	}
 
@@ -125,5 +126,14 @@ class EstudiantesModel extends CI_Model {
 		$this->db->where('id_comentario', $idcomment)
 				->delete('Comentarios');
 
+	}
+
+	public function eliminarpub($idpub)
+	{
+		$this->db->where('publicacion_id', $idpub)
+				->delete('PubicacionComentarios');		
+
+		$this->db->where('id_publicacion', $idpub)
+				->delete('Publicaciones');
 	}
 }
