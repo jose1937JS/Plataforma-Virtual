@@ -24,7 +24,16 @@ matematica, fisica, quimica, ingles, biologia, geografia orientacion y convivenc
 					<div class="card-body">
 						<h4 class="card-title"><a><?= $materia->materia ?></a></h4>
 						<p class="card-text text-justify"><?= $materia->descripcion ?></p>
-						<?= anchor("estudiante/$materia->materia/$materia->seccion", 'Entrar', 'class="btn btn-primary"') ?>
+						
+
+						<?php if( $user['role'] == 'alumno' ): ?>
+							
+							<?= anchor("estudiante/$materia->materia/$materia->seccion", 'Entrar', 'class="btn btn-primary"') ?>
+						<?php else: ?>
+						
+							<?= anchor("profesor/$materia->materia/$materia->seccion", 'Entrar', 'class="btn btn-primary"') ?>
+						<?php endif ?>
+					
 					</div>
 				</div>
 			</div>

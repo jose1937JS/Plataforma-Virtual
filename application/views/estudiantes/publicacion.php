@@ -36,8 +36,13 @@
 							
 							<!-- acciones del comentario -->
 							<div class="small mt-3">
-								<a href="#eliminar" class="del" data-id="<?= $comentario->id_comentario ?>" data-toggle="modal"><i class="fas fa-trash"></i> Eliminar</a>
-								<a href="#editar" data-toggle="modal" data-id="<?= $comentario->id_comentario ?>" class="ml-3 edit"><i class="fas fa-edit"></i> Editar</a>
+								
+								<?php if ( $user['usuario'] == $comentario->usuario ): ?>
+									
+									<a href="#eliminar" class="del" data-id="<?= $comentario->id_comentario ?>" data-toggle="modal"><i class="fas fa-trash"></i> Eliminar</a>
+									<a href="#editar" data-toggle="modal" data-id="<?= $comentario->id_comentario ?>" class="ml-3 edit"><i class="fas fa-edit"></i> Editar</a>
+								
+								<?php endif ?>	
 							</div>
 
 						</li>
@@ -120,7 +125,7 @@
 								<div class="d-flex justify-content-between">
 									<div class="file-field">
 										<a class="btn-floating btn-primary mt-0 float-left">
-											<i class="fa fa-paperclip" aria-hidden="true"></i>
+											<i class="fas fa-paperclip" aria-hidden="true"></i>
 											<input type="file" name="archivo">
 										</a>
 										<div class="file-path-wrapper">

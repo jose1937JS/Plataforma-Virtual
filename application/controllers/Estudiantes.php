@@ -10,12 +10,15 @@ class Estudiantes extends CI_Controller {
 
 	public function index()
 	{
-		if ( $this->session->has_userdata('sesion') )
+		$usuario = $this->session->userdata('sesion');
+
+		if ( $usuario['role'] == 'alumno' )
 		{
 			$user = $this->session->userdata('sesion');
 			$data['materias'] = $this->EstudiantesModel->getMaterias($user['usuario']);
+			$usuario['user'] = $user;
 
-			$this->load->view('includes/header');
+			$this->load->view('includes/header', $usuario);
 			$this->load->view('estudiantes/estudiantes', $data);
 			$this->load->view('includes/footer');
 		}
@@ -25,20 +28,29 @@ class Estudiantes extends CI_Controller {
 	}
 
 	public function materias($materia, $seccion)
-	{
+	{	
 		$user = $this->session->userdata('sesion');
-		$seccionid = $this->EstudiantesModel->getSeccId($materia, $seccion);
+	
+		if ( $user['role'] == 'alumno' || $user['role'] == 'profesor' )
+		{
+			$seccionid = $this->EstudiantesModel->getSeccId($materia, $seccion);
 
-		$data['publicaciones'] = $this->EstudiantesModel->getPublicaciones($seccionid[0]->id_seccion);
-		$data['personaid']     = $this->EstudiantesModel->getIdPersona($user['usuario']);
+			$data['publicaciones'] = $this->EstudiantesModel->getPublicaciones($seccionid[0]->id_seccion);
+			$data['personaid']     = $this->EstudiantesModel->getIdPersona($user['usuario']);
 
-		$data['materia']   = $materia;
-		$data['seccion']   = $seccion;
-		$data['seccionid'] = $seccionid[0]->id_seccion;
+			$data['materia']   = $materia;
+			$data['seccion']   = $seccion;
+			$data['seccionid'] = $seccionid[0]->id_seccion;
+			$user['user']      = $user;
+			$data['user']      = $user;
 
-		$this->load->view('includes/header');
-		$this->load->view('estudiantes/clases', $data);
-		$this->load->view('includes/footer');
+			$this->load->view('includes/header', $user);
+			$this->load->view('estudiantes/clases', $data);
+			$this->load->view('includes/footer');
+		}
+		else {
+			redirect();
+		}
 	}
 
 	public function comentar()
@@ -107,7 +119,9 @@ class Estudiantes extends CI_Controller {
 
 			$data['idpersona'] = $personaid;
 
-			$this->load->view('includes/header');
+			$usuario['user'] = $persona;
+
+			$this->load->view('includes/header', $usuario);
 			$this->load->view('estudiantes/publicacion', $data);
 			$this->load->view('includes/footer');
 		}

@@ -29,4 +29,8 @@ $(() => {
 	$('.delpub').click((e) => {
 		$('#idpub').val(e.target.dataset.id)
 	})
+
+
+
+
 })

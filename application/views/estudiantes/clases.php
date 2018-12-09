@@ -25,7 +25,12 @@
 						<p class="mt-4"><?= $publicacion->publicacion ?></p>
 						<div class="d-flex justify-content-end small">
 
-							<a href="#delpub" class="delpub mr-3" data-id="<?= $publicacion->id_publicacion ?>" data-toggle="modal"><i class="fas fa-trash"></i> Eliminar</a>
+							<?php if ( $user['usuario'] == $publicacion->usuario ): ?>
+
+								<a href="#delpub" class="delpub mr-3" data-id="<?= $publicacion->id_publicacion ?>" data-toggle="modal"><i class="fas fa-trash"></i> Eliminar</a>
+							
+							<?php endif ?>
+							
 							<?= anchor("publicacion/$publicacion->id_publicacion", '<i class="fas fa-eye"></i> Ver publicacion') ?>
 						
 						</div>
@@ -163,7 +168,20 @@
 						<label for="pub">Write down something!</label>
 					</div>
 
-					<div class="d-flex justify-content-end mt-4">
+					<div class="d-flex justify-content-between mt-5">
+						
+						<?php if( $user['role'] == 'profesor' ): ?>
+							<div class="file-field">
+								<a class="btn-floating mt-0 btn-primary float-left">
+									<i class="fas fa-upload" aria-hidden="true"></i>
+									<input type="file" name="file">
+								</a>
+								<div class="file-path-wrapper">
+									<input class="file-path validate" type="text" placeholder="Upload your file">
+								</div>
+							</div>
+						<?php endif ?>
+
 						<button type="submit" class="btn btn-primary p-2 ">
 							<i class="fas fa-send mr-2"></i> publicar
 						</button>

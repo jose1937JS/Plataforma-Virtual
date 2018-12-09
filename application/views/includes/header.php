@@ -28,9 +28,11 @@
 		</div> -->
 		
 		<div class="ml-auto mr-1">
-			<div class="avatar waves-effect waves-dark" style="width: 45px">
-				<img src="<?= base_url('application') ?>/assets/img (28)-mini.jpg" alt="avatar" class="rounded-circle img-fluid">
-			</div>
+			
+			<?php if ( $user['role'] == 'profesor' ): ?>
+				
+				<p class="navbar-text white-text"><?= anchor('https://docs.google.com/forms/u/0/d/1ljxTuDGYSjuElImNkafnqu1Vj3DgViMfrzCTV6hy2qY/edit?ntd=1&usp=forms_home&ths=true', '<i class="fas fa-pencil-alt mr-1"></i> Crear evaluación', ['target' => '_blank']) ?></p>
+			<?php endif ?>
 			
 		</div>
 	</nav>
@@ -81,43 +83,27 @@
 			<li>
 				<ul class="collapsible collapsible-accordion">
 					<li>
-						<a class="collapsible-header waves-effect arrow-r">
-							<i class="fa fa-chevron-right"></i> Submit blog
-							<i class="fa fa-angle-down rotate-icon"></i>
-						</a>
-						<div class="collapsible-body">
-							<ul>
-								<li><a href="#" class="waves-effect">Submit listing</a></li>
-								<li><a href="#" class="waves-effect">Registration form</a></li>
-							</ul>
-						</div>
+						<?php if( $user['role'] == 'alumno' ): ?>
+
+							<?= anchor('estudiante', '<i class="fas fa-home mr-3"></i> Inicio', 'class="waves-effect arrow-r collapsible-header"') ?>
+							
+							<?php elseif( $user['role'] == 'profesor' ): ?>
+
+								<?= anchor('profesor', '<i class="fas fa-home mr-3"></i> Inicio', 'class="waves-effect arrow-r collapsible-header"') ?>
+						
+							<?php else: ?>
+
+								<?= anchor('administrador', '<i class="fas fa-home mr-3"></i> Inicio', 'class="waves-effect arrow-r collapsible-header"') ?>
+						<?php endif ?>
 					</li>
 					<li>
-						<a class="collapsible-header waves-effect arrow-r">
-							<i class="fa fa-hand-pointer-o"></i> Instruction
-							<i class="fa fa-angle-down rotate-icon"></i>
-						</a>
-						<div class="collapsible-body">
-							<ul>
-								<li><a href="#" class="waves-effect">For bloggers</a></li>
-								<li><a href="#" class="waves-effect">For authors</a></li>
-							</ul>
-						</div>
+						<?= anchor('perfil', '<i class="fas fa-user mr-3"></i> Perfil', 'class="waves-effect arrow-r collapsible-header"') ?>
 					</li>
 					<li>
-						<a class="collapsible-header waves-effect arrow-r">
-							<i class="fa fa-eye"></i> About
-							<i class="fa fa-angle-down rotate-icon"></i>
-						</a>
-						<div class="collapsible-body">
-							<ul>
-								<li><a href="#" class="waves-effect">Introduction</a></li>
-								<li><a href="#" class="waves-effect">Monthly meetings</a></li>
-							</ul>
-						</div>
+						<?= anchor('administracion', '<i class="fas fa-star mr-3"></i> Administración', 'class="waves-effect arrow-r collapsible-header"') ?>
 					</li>
 					<li>
-						<?= anchor('logout', '<i class="fas fa-power-off mr-3"></i> Cerrar sesión', 'class="waves-effect arrow-r"') ?>
+						<?= anchor('logout', '<i class="fas fa-power-off mr-3"></i> Cerrar sesión', 'class="waves-effect arrow-r collapsible-header"') ?>
 					</li>
 				</ul>
 			</li>

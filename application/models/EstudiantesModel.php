@@ -41,11 +41,12 @@ class EstudiantesModel extends CI_Model {
 
 	public function getPublicaciones($seccid)
 	{
-		return $this->db->select('Publicaciones.id_publicacion, Publicaciones.publicacion, Publicaciones.archivo, Publicaciones.fecha, Publicaciones.seccion_id, Materias.materia, Personas.nombre, Personas.apellido, Secciones.seccion')
+		return $this->db->select('Publicaciones.id_publicacion, Publicaciones.publicacion, Publicaciones.archivo, Publicaciones.fecha, Publicaciones.seccion_id, Materias.materia, Personas.nombre, Personas.apellido, Secciones.seccion, Usuarios.usuario')
 				->from('Publicaciones')
 				->join('Secciones', 'Secciones.id_seccion = Publicaciones.seccion_id')
 				->join('Materias', 'Materias.id_materia = Secciones.materia_id')
 				->join('Personas', 'Personas.id_persona = Publicaciones.persona_id')
+				->join('Usuarios', 'Usuarios.persona_id = Personas.id_persona')
 				->where('Publicaciones.seccion_id', $seccid)
 				->order_by('Publicaciones.id_publicacion', 'desc')
 				->get()->result();
@@ -62,11 +63,12 @@ class EstudiantesModel extends CI_Model {
 
 	public function getComentarios($id)
 	{
-		return $this->db->select('Comentarios.id_comentario, Comentarios.comentario, Comentarios.archivo, Comentarios.fecha, Personas.nombre, Personas.apellido')
+		return $this->db->select('Comentarios.id_comentario, Comentarios.comentario, Comentarios.archivo, Comentarios.fecha, Personas.nombre, Personas.apellido, Usuarios.usuario')
 				->from('PubicacionComentarios')
 				->join('Comentarios', 'Comentarios.id_comentario = PubicacionComentarios.comentario_id')
 				->join('Personas', 'Personas.id_persona = Comentarios.persona_id')
 				->join('Publicaciones', 'Publicaciones.id_publicacion = PubicacionComentarios.publicacion_id')
+				->join('Usuarios', 'Usuarios.persona_id = Personas.id_persona')
 				->where('PubicacionComentarios.publicacion_id', $id)
 				->get()->result();
 	}

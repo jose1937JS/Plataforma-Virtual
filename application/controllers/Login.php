@@ -10,7 +10,10 @@ class Login extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('includes/header');
+		$user = $this->session->userdata('sesion');
+		$usuario['user'] = $user;
+
+		$this->load->view('includes/header', $usuario);
 		$this->load->view('login');
 		$this->load->view('includes/footer');
 	}
@@ -28,12 +31,16 @@ class Login extends CI_Controller {
 			{
 				$this->session->set_userdata('sesion', ['role' => $data[0]->tipo, 'usuario' => $user]);
 				
-				if ( $data[0]->role == 'profesor' )
+				if ( $data[0]->tipo == 'profesor' )
 				{
 					redirect('profesor');
 				}
-				else {
+				elseif ( $data[0]->tipo == 'alumno' )
+				{
 					redirect('estudiante');
+				}
+				else {
+					redirect('administrador');
 				}
 			}
 			else {

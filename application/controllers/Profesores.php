@@ -6,15 +6,47 @@ class Profesores extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('ProfesoresModel');
+		$this->load->model('EstudiantesModel');
 	}
 
 	public function index()
 	{
-		$data['txt'] = "She doesn't love me :( fuck my life";
+		$usuario = $this->session->userdata('sesion');
 
-		$this->load->view('includes/header');
-		$this->load->view('profesores/profesores', $data);
-		$this->load->view('includes/footer');
+		if ( $usuario['role'] == 'profesor' )
+		{
+			$user['user'] = $usuario;
+
+			$data['materias'] = $this->EstudiantesModel->getMaterias($usuario['usuario']);
+
+			$this->load->view('includes/header', $user);
+			$this->load->view('estudiantes/estudiantes', $data);
+			$this->load->view('includes/footer');
+		}
+		else {
+			redirect('');
+		}
+	}
+
+
+
+	// LOGICA PARA EL USUARIO ADMINISTRADOR, NO TIENE NADA Q VER CON EL PROFESOR.
+
+	public function admin()
+	{
+		$user = $this->session->userdata('sesion');
+		
+		if ( $user['role'] == 'profesor' )
+		{
+			$usuario['user'] = $user;
+
+			$this->load->view('includes/header', $usuario);
+			$this->load->view('administracion');
+			$this->load->view('includes/footer');
+		}
+		else {
+			redirect();
+		}
 	}
 
 }
