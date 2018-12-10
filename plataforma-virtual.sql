@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 05-12-2018 a las 23:28:52
+-- Tiempo de generación: 10-12-2018 a las 00:31:13
 -- Versión del servidor: 5.5.58-0ubuntu0.14.04.1
--- Versión de PHP: 7.1.14-1+ubuntu14.04.1+deb.sury.org+1
+-- Versión de PHP: 7.2.13-1+ubuntu14.04.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -43,7 +43,28 @@ CREATE TABLE `Comentarios` (
 --
 
 INSERT INTO `Comentarios` (`id_comentario`, `comentario`, `archivo`, `fecha`, `persona_id`) VALUES
-(1, 'holaaa mama mirame etoy comentando una publiacion', NULL, '15-07-2018 17:44:11', 1);
+(1, 'holaaa mama mirame etoy comentando una publiacion', NULL, '15-07-2018 17:44:11', 1),
+(2, 'hola q tal', '', '06-12-2018 21:30:57', 1),
+(3, '', '', '06-12-2018 21:44:48', 1),
+(4, '', '', '06-12-2018 21:53:38', 1),
+(5, '', '', '06-12-2018 21:54:24', 1),
+(6, '', '', '06-12-2018 21:57:37', 1),
+(8, 'hola q tla esta fito ?', '', '06-12-2018 22:42:01', 1),
+(9, '', '', '06-12-2018 22:43:23', 1),
+(10, 'angular &lt;3', 'favicon.ico', '06-12-2018 22:44:06', 1),
+(11, 'hola wapa', '', '07-12-2018 19:09:42', 1),
+(13, 'comentario', '', '07-12-2018 21:48:40', 1),
+(17, '', 'A1.jpg', '07-12-2018 22:13:12', 2),
+(19, 'q tal yo tambine', '', '08-12-2018 15:35:26', 1),
+(20, 'comentario de cesaranotnasd', '', '08-12-2018 15:45:55', 2),
+(21, 'asdasdasda', '', '09-12-2018 22:16:02', 2),
+(22, 'asdasdasda', '', '09-12-2018 22:17:59', 2),
+(23, 'asdasdasda', '', '09-12-2018 22:18:14', 2),
+(24, 'asdasdasda', '', '09-12-2018 22:18:26', 2),
+(25, 'wenas', '', '09-12-2018 22:21:11', 2),
+(26, 'asdasdasdasadasdadadasd', '', '09-12-2018 22:45:16', 1),
+(27, 'brasilera', '', '09-12-2018 22:44:55', 1),
+(29, '', 'user.png', '09-12-2018 22:45:32', 1);
 
 -- --------------------------------------------------------
 
@@ -124,7 +145,8 @@ CREATE TABLE `Personas` (
 
 INSERT INTO `Personas` (`id_persona`, `nombre`, `apellido`, `correo`, `telefono`, `foto_perfil`) VALUES
 (1, 'Jose Fernando', 'Lopez Ortiz', 'jose@lopez.com', '05151111112', ''),
-(2, 'Cesar', 'Pdrino', 'cesarpa@gmail.com', NULL, NULL);
+(2, 'Cesar', 'Pdrino', 'cesarpa@gmail.com', NULL, NULL),
+(3, 'admi', 'nistrador', 'admin@admin.com', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -180,7 +202,20 @@ CREATE TABLE `PubicacionComentarios` (
 --
 
 INSERT INTO `PubicacionComentarios` (`id_pubcomen`, `publicacion_id`, `comentario_id`) VALUES
-(1, 7, 1);
+(1, 7, 1),
+(2, 7, 2),
+(3, 7, 3),
+(4, 7, 4),
+(5, 7, 5),
+(6, 7, 6),
+(8, 7, 8),
+(9, 7, 9),
+(10, 7, 10),
+(19, 10, 19),
+(20, 10, 20),
+(22, 14, 26),
+(23, 14, 27),
+(25, 14, 29);
 
 -- --------------------------------------------------------
 
@@ -203,7 +238,10 @@ CREATE TABLE `Publicaciones` (
 
 INSERT INTO `Publicaciones` (`id_publicacion`, `publicacion`, `archivo`, `fecha`, `seccion_id`, `persona_id`) VALUES
 (7, 'hola q jhace', NULL, '14-12-1002 12:22:44', 1, 2),
-(8, 'hoal q ltaocoaldas adasd i loveuforoo', NULL, '04-12-2018 22:31:11', 1, 1);
+(9, 'hola a todos buenos tardes', NULL, '08-12-2018 13:40:40', 1, 2),
+(10, 'hola soy jose', NULL, '08-12-2018 15:30:14', 1, 1),
+(13, 'hola', '‪29258064_441168779636837_3495804869460192267_n_png.jpg', '09-12-2018 22:26:26', 1, 1),
+(14, 'dios mio', 'o1.jpg', '09-12-2018 22:34:47', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -257,7 +295,8 @@ CREATE TABLE `Usuarios` (
 
 INSERT INTO `Usuarios` (`id_usuario`, `usuario`, `clave`, `tipo`, `persona_id`) VALUES
 (1, 'jose', 'jose', 'profesor', 1),
-(2, 'cesar', 'cesar', 'alumno', 2);
+(2, 'cesar', 'cesar', 'alumno', 2),
+(3, 'admin', 'admin', 'admin', 3);
 
 --
 -- Índices para tablas volcadas
@@ -358,7 +397,7 @@ ALTER TABLE `Usuarios`
 -- AUTO_INCREMENT de la tabla `Comentarios`
 --
 ALTER TABLE `Comentarios`
-  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT de la tabla `Evaluaciones`
 --
@@ -378,7 +417,7 @@ ALTER TABLE `PersonaMaterias`
 -- AUTO_INCREMENT de la tabla `Personas`
 --
 ALTER TABLE `Personas`
-  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `PersonaSecciones`
 --
@@ -393,12 +432,12 @@ ALTER TABLE `Profesores`
 -- AUTO_INCREMENT de la tabla `PubicacionComentarios`
 --
 ALTER TABLE `PubicacionComentarios`
-  MODIFY `id_pubcomen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pubcomen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT de la tabla `Publicaciones`
 --
 ALTER TABLE `Publicaciones`
-  MODIFY `id_publicacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_publicacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT de la tabla `Secciones`
 --
@@ -413,7 +452,7 @@ ALTER TABLE `Temas`
 -- AUTO_INCREMENT de la tabla `Usuarios`
 --
 ALTER TABLE `Usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Restricciones para tablas volcadas
 --
