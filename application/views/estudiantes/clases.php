@@ -20,10 +20,16 @@
 							<!-- <div class="avatar float-left" style="width: 50px">
 								<img src="<?= base_url('application') ?>/assets/img (28)-mini.jpg" alt="avatar" class="rounded-circle img-fluid">
 							</div> -->
-							<p class="pt-4"><?= $publicacion->nombre ?> <i><?= $publicacion->fecha ?></i></p>
+							<div class="d-flex justify-content-between mt-4">
+								<span class="font-weight-bold"><?= $publicacion->nombre.' '.$publicacion->apellido ?></span>
+								<span><i><?= $publicacion->fecha ?></i></span>
+							</div>
 						</div>
 						<p class="mt-4"><?= $publicacion->publicacion ?></p>
-						<div class="d-flex justify-content-end small">
+
+						<img src="<?= base_url('application/third_party/').$publicacion->archivo ?>" alt="">
+
+						<div class="d-flex justify-content-end small mt-3">
 
 							<?php if ( $user['usuario'] == $publicacion->usuario ): ?>
 
@@ -41,11 +47,13 @@
 
 							<input type="hidden" name="materia" value="<?= $publicacion->materia ?>">
 							<input type="hidden" name="seccion" value="<?= $publicacion->seccion ?>">
+							<input type="hidden" name="persona" value="<?= $publicacion->persona_id ?>">
+							<input type="hidden" name="publicacion" value="<?= $publicacion->id_publicacion ?>">
 
 							<div class="form-row">
 								<div class="col-11">
-									<input type="text" id="comment" class="form-control">
-									<label for="comment">Escribe tu comentario...</label> 
+									<input type="text" id="comment" name="comentario" class="form-control">
+									<label for="comment">Escribe tu comentario ...</label> 
 								</div>
 								<div class="col-1">
 									<button class="btn btn-sm btn-primary px-3" data-toggle="tooltip" title="Enviar respuesta">

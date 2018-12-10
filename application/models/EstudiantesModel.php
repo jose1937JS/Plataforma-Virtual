@@ -41,7 +41,7 @@ class EstudiantesModel extends CI_Model {
 
 	public function getPublicaciones($seccid)
 	{
-		return $this->db->select('Publicaciones.id_publicacion, Publicaciones.publicacion, Publicaciones.archivo, Publicaciones.fecha, Publicaciones.seccion_id, Materias.materia, Personas.nombre, Personas.apellido, Secciones.seccion, Usuarios.usuario')
+		return $this->db->select('Publicaciones.id_publicacion, Publicaciones.publicacion, Publicaciones.archivo, Publicaciones.fecha, Publicaciones.seccion_id, Materias.materia, Personas.nombre, Personas.apellido, Secciones.seccion, Usuarios.usuario, Publicaciones.persona_id')
 				->from('Publicaciones')
 				->join('Secciones', 'Secciones.id_seccion = Publicaciones.seccion_id')
 				->join('Materias', 'Materias.id_materia = Secciones.materia_id')
@@ -73,10 +73,11 @@ class EstudiantesModel extends CI_Model {
 				->get()->result();
 	}
 
-	public function publicar($texto, $seccionid, $personaid)
+	public function publicar($texto, $file, $seccionid, $personaid)
 	{
 		$this->db->insert('Publicaciones', [
 			'publicacion' => $texto,
+			'archivo'	  => $file,
 			'fecha' 	  => date('d-m-Y H:i:s'),
 			'seccion_id'  => $seccionid,
 			'persona_id'  => $personaid

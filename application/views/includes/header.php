@@ -17,7 +17,7 @@
 			<a href="#" data-activates="slide-out" class="btn p-3 button-collapsee"><i class="fa fa-bars fa-2x"></i></a>
 
 			<a class="navbar-brand" href="#">
-				<img src="<?= base_url('application') ?>/assets/google.svg" alt="lgoo"> Classroom
+				<img src="<?= base_url('application') ?>/assets/logo-mdb-jquery-small.png" alt="logo">
 			</a>
 		</div>
 
@@ -71,11 +71,8 @@
 			<!--/. Logo -->
 			<!--Social-->
 			<li>
-				<ul class="social">
-					<li><a href="#" class="icons-sm fb-ic"><i class="fab fa-facebook fa-2x mr-2"> </i></a></li>
-					<li><a href="#" class="icons-sm pin-ic"><i class="fab fa-pinterest fa-2x mr-2"> </i></a></li>
-					<li><a href="#" class="icons-sm gplus-ic"><i class="fab fa-google-plus fa-2x mr-2"> </i></a></li>
-					<li><a href="#" class="icons-sm tw-ic"><i class="fab fa-twitter fa-2x mr-2"> </i></a></li>
+				<ul class="social text-center text-uppercase">
+					<li><i class="fas fa-user mr-2"></i><?= $user['usuario'] ?></li>
 				</ul>
 			</li>
 			<!--/Social-->

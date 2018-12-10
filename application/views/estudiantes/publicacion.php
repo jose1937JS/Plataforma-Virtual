@@ -8,10 +8,18 @@
 						<!-- <div class="avatar float-left" style="width: 50px">
 							<img src="<?= base_url('application') ?>/assets/img (28)-mini.jpg" alt="avatar" class="rounded-circle img-fluid">
 						</div> -->
-						<p class="pt-4 font-weight-bold"><?= $publicacion[0]->nombre.' '.$publicacion[0]->apellido ?> <i><?= $publicacion[0]->fecha ?></i></p>
+						<div class="d-flex justify-content-between mt-4">
+							<span class=" font-weight-bold"><?= $publicacion[0]->nombre.' '.$publicacion[0]->apellido ?> </span>
+							<span><i><?= $publicacion[0]->fecha ?></i></span>
+						</div>
 					</div>
 					<p class="mt-4"><?= $publicacion[0]->publicacion ?></p>
-					<div class="d-flex justify-content-end">
+
+					<?php if ( preg_match("/(\.png|\.jpg|\.jpeg|\.ico|\.gif)$/", $publicacion[0]->archivo) ): ?>
+						<img src="<?= base_url('application/third_party/').$publicacion[0]->archivo ?>" alt="">
+					<?php endif ?>
+
+					<div class="d-flex justify-content-end mt-4">
 						<span class="small"><?= count($comentarios) ?> Comentarios.</span>
 					</div>
 				</div>
