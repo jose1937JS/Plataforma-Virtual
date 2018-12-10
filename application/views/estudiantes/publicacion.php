@@ -13,17 +13,24 @@
 							<span><i><?= $publicacion[0]->fecha ?></i></span>
 						</div>
 					</div>
-					<p class="mt-4"><?= $publicacion[0]->publicacion ?></p>
 
-					<?php if ( preg_match("/(\.png|\.jpg|\.jpeg|\.ico|\.gif)$/", $publicacion[0]->archivo) ): ?>
-						<img src="<?= base_url('application/third_party/').$publicacion[0]->archivo ?>" alt="">
+					<div class="mt-3">
+						<?php if ( preg_match("/(\.png|\.jpg|\.jpeg|\.ico|\.gif)$/", $publicacion[0]->archivo) ): ?>
 
-					<?php elseif( preg_match("/^(http:\/\/|https:\/\/)/", $publicacion[0]->archivo) ): ?>
-						<a href="<?= $publicacion->publicacion ?>" target="_blank"><?= $publicacion->publicacion ?></a>
-					
-					<?php elseif( preg_match("/(\.txt|\.doc|\.docx|\.xls|\.csv|\.odp|\.odg|ppxs|otp|ppt|xlxs|ods|sql|php|html|xml|css|js|py|cpp|java)$/", $publicacion->archivo) ) : ?>
-					
-					<?php endif ?>
+							<p class="mt-4"><?= $publicacion[0]->publicacion ?></p>
+							<div class="view overlay zoom">
+								<img style="max-width: 600px" src="<?= base_url('application/third_party/').$publicacion[0]->archivo ?>" alt="404">
+							</div>
+
+						<?php elseif( preg_match("/^(http:\/\/|https:\/\/)/", $publicacion[0]->publicacion) ): ?>
+
+							<a href="<?= $publicacion[0]->publicacion ?>" target="_blank"><?= $publicacion[0]->publicacion ?></a>
+						
+						<?php elseif( preg_match("/(\.txt|\.doc|\.docx|\.xls|\.csv|\.odp|\.odg|\.ppxs|\.otp|\.ppt|\.xlxs|\.ods|\.sql|\.php|\.html|\.xml|\.css|\.js|\.py|\.cpp|\.java)$/", $publicacion[0]->archivo) ) : ?>
+
+							<a href="<?= $publicacion[0]->publicacion ?>" target="_blank"><?= $publicacion[0]->publicacion ?></a>
+						<?php endif ?>
+					</div>
 
 
 					<div class="d-flex justify-content-end mt-4">

@@ -25,9 +25,22 @@
 								<span><i><?= $publicacion->fecha ?></i></span>
 							</div>
 						</div>
-						<p class="mt-4"><?= $publicacion->publicacion ?></p>
 
-						<img src="<?= base_url('application/third_party/').$publicacion->archivo ?>" alt="">
+						<div class="mt-3">
+							<?php if ( preg_match("/(\.png|\.jpg|\.jpeg|\.ico|\.gif)$/", $publicacion->archivo) ): ?>
+								
+								<div class="view overlay zoom">
+									<img style="max-width: 600px" class="img-thumbnail" src="<?= base_url('application/third_party/').$publicacion->archivo ?>" alt="404">
+								</div>			
+
+							<?php elseif( preg_match("/^(http:\/\/|https:\/\/)/", $publicacion->publicacion) ): ?>
+								<a href="<?= $publicacion->publicacion ?>" target="_blank"><?= $publicacion->publicacion ?></a>
+							
+							<?php elseif( preg_match("/(\.txt|\.doc|\.docx|\.xls|\.csv|\.odp|\.odg|\.ppxs|\.otp|\.ppt|\.xlxs|\.ods|\.sql|\.php|\.html|\.xml|\.css|\.js|\.py|\.cpp|\.java)$/", $publicacion->archivo) ) : ?>
+								<a href="<?= $publicacion->publicacion ?>" target="_blank"><?= $publicacion
+								->publicacion ?></a>
+							<?php endif ?>
+						</div>
 
 						<div class="d-flex justify-content-end small mt-3">
 

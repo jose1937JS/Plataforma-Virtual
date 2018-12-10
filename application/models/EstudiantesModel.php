@@ -54,7 +54,7 @@ class EstudiantesModel extends CI_Model {
 
 	public function getPublicacion($id)
 	{
-		return $this->db->select('Publicaciones.publicacion, Publicaciones.archivo, Publicaciones.fecha, Publicaciones.persona_id, Personas.nombre, Personas.apellido')
+		return $this->db->select('Publicaciones.publicacion, Publicaciones.archivo, Publicaciones.fecha, Publicaciones.persona_id, Personas.nombre, Personas.apellido, Publicaciones.archivo')
 				->from('Publicaciones')
 				->join('Personas', 'Personas.id_persona = Publicaciones.persona_id')
 				->where('Publicaciones.id_publicacion', $id)
