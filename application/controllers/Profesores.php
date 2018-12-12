@@ -36,12 +36,29 @@ class Profesores extends CI_Controller {
 	{
 		$user = $this->session->userdata('sesion');
 		
-		if ( $user['role'] == 'profesor' )
+		if ( $user['role'] == 'admin' )
 		{
 			$usuario['user'] = $user;
 
 			$this->load->view('includes/header', $usuario);
 			$this->load->view('administracion');
+			$this->load->view('includes/footer');
+		}
+		else {
+			redirect();
+		}
+	}
+
+	public function perfil()
+	{
+		$user = $this->session->userdata('sesion');
+		
+		if ( $user['role'] == 'profesor' )
+		{
+			$usuario['user'] = $user;
+
+			$this->load->view('includes/header', $usuario);
+			$this->load->view('perfil');
 			$this->load->view('includes/footer');
 		}
 		else {

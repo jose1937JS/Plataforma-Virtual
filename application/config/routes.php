@@ -71,4 +71,5 @@ $route['editcomment']['post']	  = 'estudiantes/editcomment';
 $route['eliminarcomment']['post'] = 'estudiantes/eliminarcomment';
 $route['eliminarpub']['post']	  = 'estudiantes/eliminarpub';
 
-$route['administracion']		  = 'profesores/admin';
+$route['administrador']		 	  = 'profesores/admin';
+$route['perfil']				  = 'profesores/perfil';

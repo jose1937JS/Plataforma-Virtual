@@ -1,3 +1,4 @@
+
 <div class="container my-5">
 	<div class="row">
 		<div class="col-9">
@@ -26,9 +27,12 @@
 
 							<a href="<?= $publicacion[0]->publicacion ?>" target="_blank"><?= $publicacion[0]->publicacion ?></a>
 						
-						<?php elseif( preg_match("/(\.txt|\.doc|\.docx|\.xls|\.csv|\.odp|\.odg|\.ppxs|\.otp|\.ppt|\.xlxs|\.ods|\.sql|\.php|\.html|\.xml|\.css|\.js|\.py|\.cpp|\.java)$/", $publicacion[0]->archivo) ) : ?>
+						<?php elseif( preg_match('/(\.txt|\.pdf|\.doc|\.docx|\.xls|\.csv|\.odp|\.odg|\.ppxs|\.otp|\.ppt|\.xlsx|\.ods|\.sql|\.html|\.php|\.js|\.css|\.py|\.cpp|\.java)$/', $publicacion[0]->archivo)) : ?>
 
-							<a href="<?= $publicacion[0]->publicacion ?>" target="_blank"><?= $publicacion[0]->publicacion ?></a>
+							<!-- <div class="embed-responsive z-depth-3">
+								<embed class="embed-responsive-item" src="<?= base_url('application/third_party/').$publicacion[0]->archivo ?>" type="application/pdf" width="600" height="500"></embed>
+							</div> -->
+							<a href="<?= base_url('application/third_party/').$publicacion[0]->archivo ?>" target="_blank"><?= $publicacion[0]->archivo ?></a>
 						<?php endif ?>
 					</div>
 
@@ -47,17 +51,32 @@
 								<p class="font-weight-bold"><?= $comentario->nombre.' '.$comentario->apellido ?></p>
 								<p class="blue-grey-text"><?= $comentario->fecha ?></p>
 							</div>
-							<p><?= $comentario->comentario ?></p>
 							
-							<?php if( $comentario->archivo != '' ): ?>
+							<?php if ( preg_match("/(\.png|\.jpg|\.jpeg|\.ico|\.gif)$/", $comentario->archivo) ): ?>
+
+								<p class="mt-4"><?= $comentario->comentario ?></p>
 								<div class="view overlay zoom">
-									<img style="max-width: 600px" class="img-fluid img-thumbnail" src='<?= base_url("application/third_party/").$comentario->archivo ?>'>
-									<div class="mask flex-center waves-effect"></div>
+									<img style="max-width: 600px" src="<?= base_url('application/third_party/').$comentario->archivo ?>" alt="404">
 								</div>
+
+							<?php elseif( preg_match("/^(http:\/\/|https:\/\/)/", $comentario->comentario) ): ?>
+
+								<a href="<?= $comentario->comentario ?>" target="_blank"><?= $comentario->comentario ?></a>
+							
+							<?php elseif( preg_match('/(\.txt|\.pdf|\.doc|\.docx|\.xls|\.csv|\.odp|\.odg|\.ppxs|\.otp|\.ppt|\.xlsx|\.ods|\.sql|\.html|\.php|\.js|\.css|\.py|\.cpp|\.java)$/', $comentario->archivo)) : ?>
+
+								<!-- <div class="embed-responsive z-depth-3">
+									<embed class="embed-responsive-item" src="<?= base_url('application/third_party/').$comentario->archivo ?>" type="application/pdf" width="600" height="500"></embed>
+								</div> -->
+								<a href="<?= base_url('application/third_party/').$comentario->archivo ?>" target="_blank"><?= $comentario->archivo ?></a>
+
+							<?php else: ?>
+
+								<p><?= $comentario->comentario ?></p>
 							<?php endif ?>
 							
 							<!-- acciones del comentario -->
-							<div class="small mt-3">
+							<div class="small mt-4">
 								
 								<?php if ( $user['usuario'] == $comentario->usuario ): ?>
 									

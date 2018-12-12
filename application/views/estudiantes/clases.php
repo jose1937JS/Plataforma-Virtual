@@ -36,9 +36,14 @@
 							<?php elseif( preg_match("/^(http:\/\/|https:\/\/)/", $publicacion->publicacion) ): ?>
 								<a href="<?= $publicacion->publicacion ?>" target="_blank"><?= $publicacion->publicacion ?></a>
 							
-							<?php elseif( preg_match("/(\.txt|\.doc|\.docx|\.xls|\.csv|\.odp|\.odg|\.ppxs|\.otp|\.ppt|\.xlxs|\.ods|\.sql|\.php|\.html|\.xml|\.css|\.js|\.py|\.cpp|\.java)$/", $publicacion->archivo) ) : ?>
-								<a href="<?= $publicacion->publicacion ?>" target="_blank"><?= $publicacion
-								->publicacion ?></a>
+							<?php elseif( preg_match('/(\.txt|\.pdf|\.doc|\.docx|\.xls|\.csv|\.odp|\.odg|\.ppxs|\.otp|\.ppt|\.xlsx|\.ods|\.sql|\.html|\.php|\.js|\.css|\.py|\.cpp|\.java)$/', $publicacion->archivo)) : ?>
+
+								<a href="<?= base_url('application/third_party/').$publicacion->archivo ?>" target="_blank"><?= $publicacion
+								->archivo ?></a>
+
+							<?php else: ?>
+
+								<p><?= $publicacion->publicacion ?></p>
 							<?php endif ?>
 						</div>
 
