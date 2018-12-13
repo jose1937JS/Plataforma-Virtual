@@ -73,3 +73,5 @@ $route['eliminarpub']['post']	  = 'estudiantes/eliminarpub';
 
 $route['administrador']		 	  = 'profesores/admin';
 $route['perfil']				  = 'profesores/perfil';
+
+$route['clasenueva']['post']	  = 'profesores/clasenueva';

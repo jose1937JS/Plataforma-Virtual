@@ -139,4 +139,26 @@ class EstudiantesModel extends CI_Model {
 		$this->db->where('id_publicacion', $idpub)
 				->delete('Publicaciones');
 	}
+
+	public function getProfesor($seccionid)
+	{
+		return $this->db->select('Personas.nombre, Personas.apellido, Personas.correo, Usuarios.tipo')
+						->from('PersonaSecciones')
+						->join('Personas', 'Personas.id_persona = PersonaSecciones.persona_id')
+						->join('Usuarios', 'Usuarios.persona_id = Personas.id_persona')
+						->where('PersonaSecciones.seccion_id', $seccionid[0]->id_seccion)
+						->where('Usuarios.tipo', 'profesor')
+						->get()->result();
+	}
+
+	public function getAlumnos($seccionid)
+	{
+		return $this->db->select('Personas.nombre, Personas.apellido, Usuarios.tipo')
+						->from('PersonaSecciones')
+						->join('Personas', 'Personas.id_persona = PersonaSecciones.persona_id')
+						->join('Usuarios', 'Usuarios.persona_id = Personas.id_persona')
+						->where('PersonaSecciones.seccion_id', $seccionid[0]->id_seccion)
+						->where('Usuarios.tipo', 'alumno')
+						->get()->result();
+	}
 }

@@ -97,7 +97,7 @@
 						<?= anchor('perfil', '<i class="fas fa-user mr-3"></i> Perfil', 'class="waves-effect arrow-r collapsible-header"') ?>
 					</li>
 					<li>
-						<?= anchor('administracion', '<i class="fas fa-star mr-3"></i> Administración', 'class="waves-effect arrow-r collapsible-header"') ?>
+						<?= anchor('administracion', '<i class="fas fa-star mr-3"></i>Notas', 'class="waves-effect arrow-r collapsible-header"') ?> 
 					</li>
 					<li>
 						<?= anchor('logout', '<i class="fas fa-power-off mr-3"></i> Cerrar sesión', 'class="waves-effect arrow-r collapsible-header"') ?>

@@ -37,14 +37,15 @@ class Estudiantes extends CI_Controller {
 
 			$data['publicaciones'] = $this->EstudiantesModel->getPublicaciones($seccionid[0]->id_seccion);
 			$data['personaid']     = $this->EstudiantesModel->getIdPersona($user['usuario']);
+			$data['profesor']  	   = $this->EstudiantesModel->getProfesor($seccionid); 
+			$data['alumnos']  	   = $this->EstudiantesModel->getAlumnos($seccionid);
 
 			$data['materia']   = $materia;
 			$data['seccion']   = $seccion;
 			$data['seccionid'] = $seccionid[0]->id_seccion;
-			$user['user']      = $user;
 			$data['user']      = $user;
 
-			$this->load->view('includes/header', $user);
+			$this->load->view('includes/header', $data);
 			$this->load->view('estudiantes/clases', $data);
 			$this->load->view('includes/footer');
 		}

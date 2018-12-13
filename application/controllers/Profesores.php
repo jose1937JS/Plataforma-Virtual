@@ -17,7 +17,9 @@ class Profesores extends CI_Controller {
 		{
 			$user['user'] = $usuario;
 
-			$data['materias'] = $this->EstudiantesModel->getMaterias($usuario['usuario']);
+			$data['materias']    = $this->EstudiantesModel->getMaterias($usuario['usuario']);
+			$data['allmaterias'] = $this->ProfesoresModel->getMaterias();
+			$data['personaid']   = $this->EstudiantesModel->getIdPersona($usuario['usuario']);
 
 			$this->load->view('includes/header', $user);
 			$this->load->view('estudiantes/estudiantes', $data);
@@ -26,6 +28,17 @@ class Profesores extends CI_Controller {
 		else {
 			redirect('');
 		}
+	}
+
+	public function clasenueva()
+	{
+		$seccion   = $this->input->post('seccion');
+		$materia   = $this->input->post('materia');
+		$personaid = $this->input->post('personaid');
+
+		$this->ProfesoresModel->clasenueva($seccion, $materia, $personaid);
+
+		redirect('profesor');
 	}
 
 

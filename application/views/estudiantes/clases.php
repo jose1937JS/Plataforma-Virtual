@@ -129,17 +129,18 @@
 				<div class="card-body p-0">
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item">
-							<h5 class="">Alumnos</h5>
-							<p class="mb-2">14</p>
+							<h4 class="mb-3">Alumnos</h4>
+							<p class="mb-2">Cantidad total: <a href="#alumnos" data-toggle="modal"><?= count($alumnos) ?></a></p>
 						</li>
 						<li class="list-group-item">
-							<h5 class="">Profesor</h5>
-							<p class="mb-2">
-								<?php var_dump($publicaciones[0]) ?>
-							</p>
+							<h4 class="mb-3">Profesor</h4>
+							<p class="small font-weight-bold">Nombre completo:</p>
+							<p><?= $profesor[0]->nombre.' '.$profesor[0]->apellido ?></p>
+							<p class="small font-weight-bold">Correo Electrónico:</p>
+							<p><?= $profesor[0]->correo ?></p>
 						</li>
 						<li class="list-group-item">
-							<h5 class="">Otra</h5>
+							<h4 class="mb-3">Otra</h4>
 							<p class="mb-2">adipisicing elit. Illo, ea.</p>
 						</li>
 					</ul>
@@ -149,7 +150,7 @@
 			<div class="card hoverable mt-4">
 				<div class="card-body p-0">
 					<ul class="list-group list-group-flush">
-						<li class="list-group-item"><h5>Archivos</h5></li>
+						<li class="list-group-item"><h4>Archivos</h4></li>
 						<li class="list-group-item">
 							<p class="mb-2">adipisicing elit. Illo, ea.</p>
 						</li>
@@ -214,6 +215,44 @@
 					</div>
 				
 				</form>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- MODAL PARA LOS ALUMNOS -->
+
+<div class="modal fade" id="alumnos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Alumnos inscritos.</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				
+				<table class="table table-sm table-hover table-bordered">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ($alumnos as $k => $a): ?>
+							<tr>
+								<td><?= $k + 1 ?></td>
+								<td><?= $a->nombre ?></td>
+								<td><?= $a->apellido ?></td>
+							</tr>
+						<?php endforeach ?>
+					</tbody>
+				</table>
 
 			</div>
 		</div>

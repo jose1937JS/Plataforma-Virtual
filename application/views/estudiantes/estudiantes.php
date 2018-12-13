@@ -43,58 +43,52 @@ matematica, fisica, quimica, ingles, biologia, geografia orientacion y convivenc
 	</div>
 </div>
 
-<button class="btn-floating red" data-toggle="modal" data-target="#AddClass">
-  <i class="fas fa-plus"></i>
-</button>
+<?php if ( $user['role'] == 'profesor' ): ?>
+	
+	<button class="btn-floating red" data-toggle="modal" data-target="#AddClass">
+	  <i class="fas fa-plus"></i>
+	</button>
 
-<div class="modal fade" id="AddClass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Crear clase nueva.</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				
-				<?= form_open_multipart('clasenueva', ['class' => 'md-form']) ?>
+	<div class="modal fade" id="AddClass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Crear clase nueva.</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
 					
-					<input type="hidden" name="materia" value="<?= $materia ?>">
-					<input type="hidden" name="seccion" value="<?= $seccion ?>">
-					<input type="hidden" name="seccionid" value="<?= $seccionid ?>">
-					<input type="hidden" name="personaid" value="<?= $personaid[0]->id_persona ?>"> 
+					<?= form_open('clasenueva') ?>
 
-					<div class="input-group">
-						<i class="fas fa-pen prefix"></i>
-						<textarea type="text" name="publicacion" id="pub" class="md-textarea form-control"></textarea>
-						<label for="pub">Write down something!</label>
-					</div>
+						<input type="hidden" name="personaid" value="<?= $personaid[0]->id_persona ?>">
 
-					<div class="d-flex justify-content-between mt-5">
-						
-						<?php if( $user['role'] == 'profesor' ): ?>
-							<div class="file-field">
-								<a class="btn-floating mt-0 btn-primary float-left">
-									<i class="fas fa-upload" aria-hidden="true"></i>
-									<input type="file" name="file">
-								</a>
-								<div class="file-path-wrapper">
-									<input class="file-path validate" type="text" placeholder="Upload your file">
-								</div>
-							</div>
-						<?php endif ?>
+						<select class="browser-default custom-select" name="materia">
+							<option selected disabled>Selecciona una materia</option>
 
-						<button type="submit" class="btn btn-primary p-2 ">
-							<i class="fas fa-send mr-2"></i> publicar
-						</button>
-					</div>
-				
-				</form>
+							<?php foreach ($allmaterias as $materia): ?>
+								<option value="<?= $materia->id_materia ?>"><?= $materia->materia ?></option>
+							<?php endforeach ?>
+						</select>
 
+						<div class="form-group mt-3">
+							<label for="seccion">Sección</label>
+							<input type="text" class="form-control" id="seccion" name="seccion" >
+						</div>
+
+						<div class="d-flex justify-content-end mt-4">
+							<button type="submit" class="btn btn-primary p-2 ">
+								<i class="fas fa-send mr-2"></i> Crear clase
+							</button>
+						</div>
+					
+					</form>
+
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+<?php endif ?>
 
 <!-- <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe-AqloYzBy-EEojRb4iEHoC9tnhwqBH5v3Xm7XGhiJmxRoeg/viewform?embedded=true" width="640" height="1569" frameborder="0" marginheight="0" marginwidth="0">Cargando...</iframe> -->
