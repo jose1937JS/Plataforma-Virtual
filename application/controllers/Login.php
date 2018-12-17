@@ -13,6 +13,10 @@ class Login extends CI_Controller {
 		$user = $this->session->userdata('sesion');
 		$usuario['user'] = $user;
 
+		$str = explode('/', current_url());
+		(isset($str[5]) && $str[5] == 'notas')? $bool = true : $bool = false;
+		$usuario['url'] = $bool;
+
 		$this->load->view('includes/header', $usuario);
 		$this->load->view('login');
 		$this->load->view('includes/footer');

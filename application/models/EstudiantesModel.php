@@ -12,10 +12,10 @@ class EstudiantesModel extends CI_Model {
 	{
 		return $this->db->select('*')
 				->from('PersonaSecciones')
-				->join('Personas', 'Personas.id_persona = PersonaSecciones.persona_id')
-				->join('Secciones', 'Secciones.id_seccion = PersonaSecciones.seccion_id')
-				->join('Materias', 'Materias.id_materia = Secciones.materia_id')
-				->join('Usuarios', 'Usuarios.persona_id = Personas.id_persona')
+				->join('Personas', 'Personas.id_persona  = PersonaSecciones.persona_id')
+				->join('Secciones','Secciones.id_seccion = PersonaSecciones.seccion_id')
+				->join('Materias', 'Materias.id_materia  = Secciones.materia_id')
+				->join('Usuarios', 'Usuarios.persona_id  = Personas.id_persona')
 				->where('Usuarios.usuario', $usuario)
 				->get()->result();
 	}
@@ -43,10 +43,10 @@ class EstudiantesModel extends CI_Model {
 	{
 		return $this->db->select('Publicaciones.id_publicacion, Publicaciones.publicacion, Publicaciones.archivo, Publicaciones.fecha, Publicaciones.seccion_id, Materias.materia, Personas.nombre, Personas.apellido, Secciones.seccion, Usuarios.usuario, Publicaciones.persona_id')
 				->from('Publicaciones')
-				->join('Secciones', 'Secciones.id_seccion = Publicaciones.seccion_id')
-				->join('Materias', 'Materias.id_materia = Secciones.materia_id')
-				->join('Personas', 'Personas.id_persona = Publicaciones.persona_id')
-				->join('Usuarios', 'Usuarios.persona_id = Personas.id_persona')
+				->join('Secciones','Secciones.id_seccion = Publicaciones.seccion_id')
+				->join('Materias', 'Materias.id_materia  = Secciones.materia_id')
+				->join('Personas', 'Personas.id_persona  = Publicaciones.persona_id')
+				->join('Usuarios', 'Usuarios.persona_id  = Personas.id_persona')
 				->where('Publicaciones.seccion_id', $seccid)
 				->order_by('Publicaciones.id_publicacion', 'desc')
 				->get()->result();

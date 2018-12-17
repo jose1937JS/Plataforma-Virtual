@@ -17,6 +17,12 @@ class Profesores extends CI_Controller {
 		{
 			$user['user'] = $usuario;
 
+			$str = explode('/', current_url());
+			(isset($str[5]) && $str[5] == 'notas')? $bool = true : $bool = false;
+			(isset($str[5]) && $str[5] == 'profesor')? $bol = true : $bol = false;
+			$user['url'] = $bool;
+			$user['blank'] = $bol;
+
 			$data['materias']    = $this->EstudiantesModel->getMaterias($usuario['usuario']);
 			$data['allmaterias'] = $this->ProfesoresModel->getMaterias();
 			$data['personaid']   = $this->EstudiantesModel->getIdPersona($usuario['usuario']);
@@ -39,6 +45,54 @@ class Profesores extends CI_Controller {
 		$this->ProfesoresModel->clasenueva($seccion, $materia, $personaid);
 
 		redirect('profesor');
+	}
+
+	public function notas()
+	{
+		$user = $this->session->userdata('sesion');
+		
+		if ( $user['role'] == 'profesor' )
+		{
+			$usuario['user'] = $user;
+
+			$data['materias'] = $this->EstudiantesModel->getMaterias($user['usuario']);
+
+			$str = explode('/', current_url());
+			(isset($str[5]) && isset($str[6]) && $str[5] == 'notas')? $bool = true : $bool = false;
+			(isset($str[5]) == 'profesor')? $bol = true : $bol = false;
+			$usuario['blank'] = $bol;
+			$usuario['url'] = $bool;
+
+			$this->load->view('includes/header', $usuario);
+			$this->load->view('profesores/notas', $data);
+			$this->load->view('includes/footer');
+		}
+		else {
+			redirect();
+		}
+	}
+
+	public function materianotas($materia, $seccion)
+	{
+		$user = $this->session->userdata('sesion');
+		
+		if ( $user['role'] == 'profesor' )
+		{
+			$usuario['user'] = $user;
+
+			$data['materias'] = $this->EstudiantesModel->getMaterias($user['usuario']);
+
+			$str = explode('/', current_url());
+			(isset($str[5]) && $str[5] == 'notas')? $bool = true : $bool = false;
+			$usuario['url'] = $bool;
+
+			$this->load->view('includes/header', $usuario);
+			$this->load->view('profesores/notasmateria', $data);
+			$this->load->view('includes/footer');
+		}
+		else {
+			redirect();
+		}
 	}
 
 

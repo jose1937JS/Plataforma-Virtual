@@ -18,20 +18,38 @@ matematica, fisica, quimica, ingles, biologia, geografia orientacion y convivenc
 		
 		<?php foreach ($materias as $materia): ?>
 			
-			<div class="col-md-3 col-lg-3">
+			<div class="col-lg-4">
 				<div class="card hoverable">
-					<img class="card-img-top" src="<?= base_url('application') ?>/assets/29.jpg" alt="Card image cap">
-					<div class="card-body">
+					<img class="card-img-top img-fluid" style="height: 200px" src="<?= base_url('application/assets/').$materia->imagen ?>" alt="Card image cap">
+					<div class="card-body text-center">
 						<h4 class="card-title"><a><?= $materia->materia ?></a></h4>
-						<p class="card-text text-justify"><?= $materia->descripcion ?></p>
-						
+						<p class="card-text"><?= $materia->descripcion ?></p>
 
 						<?php if( $user['role'] == 'alumno' ): ?>
 							
-							<?= anchor("estudiante/$materia->materia/$materia->seccion", 'Entrar', 'class="btn btn-primary"') ?>
+							<?php if ($materia->materia == 'Orientacion y Convivencia'): ?>
+								<?= anchor("estudiante/orientacion/$materia->seccion", 'Entrar', 'class="btn btn-primary btn-sm"') ?>
+
+							<?php elseif($materia->materia == 'Ciencias Sociales'): ?>
+								<?= anchor("estudiante/sociales/$materia->seccion", 'Entrar', 'class="btn btn-primary btn-sm"') ?>
+
+							<?php else: ?>
+
+								<?= anchor("estudiante/$materia->materia/$materia->seccion", 'Entrar', 'class="btn btn-primary btn-sm"') ?>
+							<?php endif ?>
+
 						<?php else: ?>
 						
-							<?= anchor("profesor/$materia->materia/$materia->seccion", 'Entrar', 'class="btn btn-primary"') ?>
+							<?php if ($materia->materia == 'Orientacion y Convivencia'): ?>
+								<?= anchor("profesor/orientacion/$materia->seccion", 'Entrar', 'class="btn btn-primary btn-sm"') ?>
+
+							<?php elseif($materia->materia == 'Ciencias Sociales'): ?>
+								<?= anchor("profesor/sociales/$materia->seccion", 'Entrar', 'class="btn btn-primary btn-sm"') ?>
+
+							<?php else: ?>
+
+								<?= anchor("profesor/$materia->materia/$materia->seccion", 'Entrar', 'class="btn btn-primary btn-sm"') ?>
+							<?php endif ?>
 						<?php endif ?>
 					
 					</div>
@@ -64,7 +82,8 @@ matematica, fisica, quimica, ingles, biologia, geografia orientacion y convivenc
 
 						<input type="hidden" name="personaid" value="<?= $personaid[0]->id_persona ?>">
 
-						<select class="browser-default custom-select" name="materia">
+						<label for="materia">Materia</label>
+						<select class="browser-default custom-select" name="materia" id="materia">
 							<option selected disabled>Selecciona una materia</option>
 
 							<?php foreach ($allmaterias as $materia): ?>

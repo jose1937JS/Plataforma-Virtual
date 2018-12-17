@@ -30,8 +30,21 @@
 		<div class="ml-auto mr-1">
 			
 			<?php if ( $user['role'] == 'profesor' ): ?>
+			
+				<?php if ( $url ): ?>
+					<p class="navbar-text white-text">
+						<?= anchor('', '<i class="fas fa-upload mr-1"></i> Cargar Notas', ['target' => '_blank']) ?>
+					</p>
+
+				<?php elseif( $blank ): ?>
+					
+				<?php else: ?>
+					<p class="navbar-text white-text">
+						<?= anchor('https://docs.google.com/forms/u/0/d/1ljxTuDGYSjuElImNkafnqu1Vj3DgViMfrzCTV6hy2qY/edit?ntd=1&usp=forms_home&ths=true', '<i class="fas fa-pencil-alt mr-1"></i> Crear evaluación', ['target' => '_blank']) ?>
+					</p>
 				
-				<p class="navbar-text white-text"><?= anchor('https://docs.google.com/forms/u/0/d/1ljxTuDGYSjuElImNkafnqu1Vj3DgViMfrzCTV6hy2qY/edit?ntd=1&usp=forms_home&ths=true', '<i class="fas fa-pencil-alt mr-1"></i> Crear evaluación', ['target' => '_blank']) ?></p>
+				<?php endif ?>
+
 			<?php endif ?>
 			
 		</div>
@@ -97,7 +110,7 @@
 						<?= anchor('perfil', '<i class="fas fa-user mr-3"></i> Perfil', 'class="waves-effect arrow-r collapsible-header"') ?>
 					</li>
 					<li>
-						<?= anchor('administracion', '<i class="fas fa-star mr-3"></i>Notas', 'class="waves-effect arrow-r collapsible-header"') ?> 
+						<?= anchor('notas', '<i class="fas fa-star mr-3"></i>Notas', 'class="waves-effect arrow-r collapsible-header"') ?> 
 					</li>
 					<li>
 						<?= anchor('logout', '<i class="fas fa-power-off mr-3"></i> Cerrar sesión', 'class="waves-effect arrow-r collapsible-header"') ?>

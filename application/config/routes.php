@@ -60,6 +60,7 @@ $route['estudiante']  			  = 'estudiantes';
 
 $route['estudiante/([a-zA-Z]+)/([A-Z])'] = 'estudiantes/materias/$1/$2';
 $route['profesor/([a-zA-Z]+)/([A-Z])']   = 'estudiantes/materias/$1/$2';
+$route['notas/([a-zA-Z]+)/([A-Z])']      = 'profesores/materianotas/$1/$2';
 
 $route['comentar']['post']		  = 'estudiantes/comentar';
 $route['publicar']['post']		  = 'estudiantes/publicar';
@@ -71,7 +72,7 @@ $route['editcomment']['post']	  = 'estudiantes/editcomment';
 $route['eliminarcomment']['post'] = 'estudiantes/eliminarcomment';
 $route['eliminarpub']['post']	  = 'estudiantes/eliminarpub';
 
-$route['administrador']		 	  = 'profesores/admin';
 $route['perfil']				  = 'profesores/perfil';
+$route['notas']				  	  = 'profesores/notas';
 
 $route['clasenueva']['post']	  = 'profesores/clasenueva';

@@ -16,7 +16,11 @@ class Estudiantes extends CI_Controller {
 		{
 			$user = $this->session->userdata('sesion');
 			$data['materias'] = $this->EstudiantesModel->getMaterias($user['usuario']);
-			$usuario['user'] = $user;
+			$usuario['user']  = $user;
+
+			$str = explode('/', current_url());
+			(isset($str[5]) && $str[5] == 'notas')? $bool = true : $bool = false;
+			$usuario['url'] = $bool;
 
 			$this->load->view('includes/header', $usuario);
 			$this->load->view('estudiantes/estudiantes', $data);
@@ -44,6 +48,12 @@ class Estudiantes extends CI_Controller {
 			$data['seccion']   = $seccion;
 			$data['seccionid'] = $seccionid[0]->id_seccion;
 			$data['user']      = $user;
+
+			$str = explode('/', current_url());
+			(isset($str[5]) && $str[5] == 'notas')? $bool = true : $bool = false;
+			(isset($str[5]) && $str[5] == 'profesor')? $bol = true : $bol = false;
+			$data['url'] = $bool;
+			$data['blank'] = $bol;
 
 			$this->load->view('includes/header', $data);
 			$this->load->view('estudiantes/clases', $data);
@@ -148,6 +158,10 @@ class Estudiantes extends CI_Controller {
 			$data['idpersona'] = $personaid;
 
 			$usuario['user'] = $persona;
+
+			$str = explode('/', current_url());
+			(isset($str[5]) && $str[5] == 'notas')? $bool = true : $bool = false;
+			$usuario['url'] = $bool;
 
 			$this->load->view('includes/header', $usuario);
 			$this->load->view('estudiantes/publicacion', $data);
