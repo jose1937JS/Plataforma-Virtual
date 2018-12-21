@@ -19,10 +19,16 @@ class Estudiantes extends CI_Controller {
 			$usuario['user']  = $user;
 
 			$str = explode('/', current_url());
-			(isset($str[5]) && $str[5] == 'notas')? $bool = true : $bool = false;
-			$usuario['url'] = $bool;
+			(isset($str[5]) && $str[5] == 'notas')? $bool   = true  : $bool = false;
+			(isset($str[5]) && $str[5] == 'profesor')? $bol = false : $bol  = true;
+			$usuario['url']   = $bool;
+			$usuario['blank'] = $bol;
 
-			$this->load->view('includes/header', $usuario);
+			$usuario['materias']  = $this->EstudiantesModel->getAllMaterias();
+			$usuario['idpersona'] = $this->EstudiantesModel->getIdPersona($user['usuario']);
+
+			$this->load->view('includes/header');
+			$this->load->view('includes/sidebar', $usuario);
 			$this->load->view('estudiantes/estudiantes', $data);
 			$this->load->view('includes/footer');
 		}
@@ -32,35 +38,79 @@ class Estudiantes extends CI_Controller {
 	}
 
 	public function materias($materia, $seccion)
-	{	
+	{
 		$user = $this->session->userdata('sesion');
-	
+
 		if ( $user['role'] == 'alumno' || $user['role'] == 'profesor' )
 		{
 			$seccionid = $this->EstudiantesModel->getSeccId($materia, $seccion);
 
 			$data['publicaciones'] = $this->EstudiantesModel->getPublicaciones($seccionid[0]->id_seccion);
 			$data['personaid']     = $this->EstudiantesModel->getIdPersona($user['usuario']);
-			$data['profesor']  	   = $this->EstudiantesModel->getProfesor($seccionid); 
+			$data['profesor']  	   = $this->EstudiantesModel->getProfesor($seccionid);
 			$data['alumnos']  	   = $this->EstudiantesModel->getAlumnos($seccionid);
 
-			$data['materia']   = $materia;
+			$data['materia']   = $this->EstudiantesModel->getMateria($materia);
+
 			$data['seccion']   = $seccion;
 			$data['seccionid'] = $seccionid[0]->id_seccion;
 			$data['user']      = $user;
+			$data['files']	   = $this->EstudiantesModel->getFiles($seccionid[0]->id_seccion);
 
 			$str = explode('/', current_url());
-			(isset($str[5]) && $str[5] == 'notas')? $bool = true : $bool = false;
-			(isset($str[5]) && $str[5] == 'profesor')? $bol = true : $bol = false;
-			$data['url'] = $bool;
+			(isset($str[5]) && $str[5] == 'notas')? $bool   = true : $bool = false;
+			(isset($str[5]) && $str[5] == 'profesor')? $bol = false : $bol = true;
+			$data['url']   = $bool;
 			$data['blank'] = $bol;
 
-			$this->load->view('includes/header', $data);
+			$this->load->view('includes/header');
+			$this->load->view('includes/sidebar', $data);
 			$this->load->view('estudiantes/clases', $data);
 			$this->load->view('includes/footer');
 		}
 		else {
 			redirect();
+		}
+	}
+
+	public function publicacion($id)
+	{
+		if( $this->session->has_userdata('sesion') )
+		{
+
+			$data['publicacion'] = $this->EstudiantesModel->getPublicacion($id);
+			$data['comentarios'] = $this->EstudiantesModel->getComentarios($id);
+			$data['idpub']	   	 = $id;
+
+			$materia = $data['publicacion'][0]->materia;
+			$seccion = $data['publicacion'][0]->seccion;
+
+			$seccionid 		  = $this->EstudiantesModel->getSeccId($materia, $seccion);
+			$data['profesor'] = $this->EstudiantesModel->getProfesor($seccionid);
+			$data['alumnos']  = $this->EstudiantesModel->getAlumnos($seccionid);
+			$data['files']	  = $this->EstudiantesModel->getFiles($seccionid[0]->id_seccion);
+
+
+			$persona 	= $this->session->userdata('sesion');
+			$personaid  = $this->EstudiantesModel->getIdPersona($persona['usuario']);
+
+			$data['idpersona'] = $personaid;
+
+			$usuario['user']   = $persona;
+
+			$str = explode('/', current_url());
+			(isset($str[5]) && $str[5] == 'notas')? $bool   = true : $bool = false;
+			(isset($str[5]) && $str[5] == 'profesor')? $bol = false : $bol = true;
+			$usuario['url']   = $bool;
+			$usuario['blank'] = $bol;
+
+			$this->load->view('includes/header');
+			$this->load->view('includes/sidebar', $usuario);
+			$this->load->view('estudiantes/publicacion', $data);
+			$this->load->view('includes/footer');
+		}
+		else {
+			redirect('');
 		}
 	}
 
@@ -88,7 +138,7 @@ class Estudiantes extends CI_Controller {
 		else
 		{
 			$this->EstudiantesModel->comentar($comentario, '', $personaid, $publicacionid);
-			
+
 			// $this->output
 			// 	->set_content_type('application/json')
 			// 	->set_output(json_encode($this->upload->display_errors()));
@@ -129,7 +179,7 @@ class Estudiantes extends CI_Controller {
 			else
 			{
 				$this->EstudiantesModel->publicar($texto, null, $seccionid, $personaid[0]->id_persona);
-				
+
 				// $this->output
 				// 	->set_content_type('application/json')
 				// 	->set_output(json_encode($this->upload->display_errors()));
@@ -142,34 +192,6 @@ class Estudiantes extends CI_Controller {
 
 		redirect("estudiante/$materia/$seccion");
 
-	}
-
-	public function publicacion($id)
-	{
-		if( $this->session->has_userdata('sesion') )
-		{
-			$data['publicacion'] = $this->EstudiantesModel->getPublicacion($id);
-			$data['comentarios'] = $this->EstudiantesModel->getComentarios($id);
-			$data['idpub']	   	 = $id;
-
-			$persona 	= $this->session->userdata('sesion');
-			$personaid  = $this->EstudiantesModel->getIdPersona($persona['usuario']);
-
-			$data['idpersona'] = $personaid;
-
-			$usuario['user'] = $persona;
-
-			$str = explode('/', current_url());
-			(isset($str[5]) && $str[5] == 'notas')? $bool = true : $bool = false;
-			$usuario['url'] = $bool;
-
-			$this->load->view('includes/header', $usuario);
-			$this->load->view('estudiantes/publicacion', $data);
-			$this->load->view('includes/footer');
-		}
-		else {
-			redirect('');
-		}
 	}
 
 	public function editcomment()
@@ -213,4 +235,13 @@ class Estudiantes extends CI_Controller {
 
 		redirect("estudiante/$materia/$seccion");
 	}
+
+	public function addclass()
+	{
+		$idseccion = $this->input->post('idseccion');
+		$idpersona = $this->input->post('idpersona');
+
+		$this->EstudiantesModel->addclass($idseccion, $idpersona);
+	}
+
 }

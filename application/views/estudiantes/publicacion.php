@@ -26,13 +26,17 @@
 						<?php elseif( preg_match("/^(http:\/\/|https:\/\/)/", $publicacion[0]->publicacion) ): ?>
 
 							<a href="<?= $publicacion[0]->publicacion ?>" target="_blank"><?= $publicacion[0]->publicacion ?></a>
-						
+
 						<?php elseif( preg_match('/(\.txt|\.pdf|\.doc|\.docx|\.xls|\.csv|\.odp|\.odg|\.ppxs|\.otp|\.ppt|\.xlsx|\.ods|\.sql|\.html|\.php|\.js|\.css|\.py|\.cpp|\.java)$/', $publicacion[0]->archivo)) : ?>
 
 							<!-- <div class="embed-responsive z-depth-3">
 								<embed class="embed-responsive-item" src="<?= base_url('application/third_party/').$publicacion[0]->archivo ?>" type="application/pdf" width="600" height="500"></embed>
 							</div> -->
 							<a href="<?= base_url('application/third_party/').$publicacion[0]->archivo ?>" target="_blank"><?= $publicacion[0]->archivo ?></a>
+
+						<?php else: ?>
+							<p><?= $publicacion[0]->publicacion ?></p>
+
 						<?php endif ?>
 					</div>
 
@@ -43,7 +47,7 @@
 				</div>
 
 				<ul class="list-group">
-					
+
 					<?php foreach( $comentarios as $comentario ): ?>
 
 						<li class="list-group-item">
@@ -51,7 +55,7 @@
 								<p class="font-weight-bold"><?= $comentario->nombre.' '.$comentario->apellido ?></p>
 								<p class="blue-grey-text"><?= $comentario->fecha ?></p>
 							</div>
-							
+
 							<?php if ( preg_match("/(\.png|\.jpg|\.jpeg|\.ico|\.gif)$/", $comentario->archivo) ): ?>
 
 								<p class="mt-4"><?= $comentario->comentario ?></p>
@@ -62,7 +66,7 @@
 							<?php elseif( preg_match("/^(http:\/\/|https:\/\/)/", $comentario->comentario) ): ?>
 
 								<a href="<?= $comentario->comentario ?>" target="_blank"><?= $comentario->comentario ?></a>
-							
+
 							<?php elseif( preg_match('/(\.txt|\.pdf|\.doc|\.docx|\.xls|\.csv|\.odp|\.odg|\.ppxs|\.otp|\.ppt|\.xlsx|\.ods|\.sql|\.html|\.php|\.js|\.css|\.py|\.cpp|\.java)$/', $comentario->archivo)) : ?>
 
 								<!-- <div class="embed-responsive z-depth-3">
@@ -74,23 +78,23 @@
 
 								<p><?= $comentario->comentario ?></p>
 							<?php endif ?>
-							
+
 							<!-- acciones del comentario -->
 							<div class="small mt-4">
-								
+
 								<?php if ( $user['usuario'] == $comentario->usuario ): ?>
-									
+
 									<a href="#eliminar" class="del" data-id="<?= $comentario->id_comentario ?>" data-toggle="modal"><i class="fas fa-trash"></i> Eliminar</a>
 									<a href="#editar" data-toggle="modal" data-id="<?= $comentario->id_comentario ?>" class="ml-3 edit"><i class="fas fa-edit"></i> Editar</a>
-								
-								<?php endif ?>	
+
+								<?php endif ?>
 							</div>
 
 						</li>
 					<?php endforeach ?>
-				
+
 				</ul>
-				
+
 				<!-- Modal para editar -->
 				<div class="modal fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					<div class="modal-dialog" role="document">
@@ -162,7 +166,7 @@
 						</div>
 						<div class="row">
 							<div class="col">
-								
+
 								<div class="d-flex justify-content-between">
 									<div class="file-field">
 										<a class="btn-floating btn-primary mt-0 float-left">
@@ -193,14 +197,29 @@
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item">
 							<h5 class="">Alumnos</h5>
-							<p class="mb-2">14</p>
+							<p class="mb-2">Cantidad total: <a href="#alumnos" data-toggle="modal"><?= count($alumnos) ?></a></p>
 						</li>
 						<li class="list-group-item">
 							<h5 class="">Profesor</h5>
-							<p class="mb-2">
-								<?php var_dump($publicacion[0]) ?>
-							</p>
+							<p class="small font-weight-bold">Nombre completo:</p>
+							<p><?= $profesor[0]->nombre.' '.$profesor[0]->apellido ?></p>
+							<p class="small font-weight-bold">Correo Electrónico:</p>
+							<p><?= $profesor[0]->correo ?></p>
 						</li>
+						<li class="list-group-item"><h5>Archivos</h5></li>
+						<?php foreach ($files as $file): ?>
+							<li class="list-group-item">
+								<a target="_blank" href="<?= base_url('application/third_party/').$file->archivo ?>"><?= $file->archivo ?></a>
+							</li>
+						<?php endforeach ?>
+
+					</ul>
+				</div>
+			</div>
+
+			<div class="card hoverable mt-4">
+				<div class="card-body p-0">
+					<ul class="list-group list-group-flush">
 						<li class="list-group-item">
 							<h5 class="">Otra</h5>
 							<p class="mb-2">adipisicing elit. Illo, ea.</p>
@@ -209,23 +228,42 @@
 				</div>
 			</div>
 
-			<div class="card hoverable mt-4">
-				<div class="card-body p-0">
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item"><h5>Archivos</h5></li>
-						<li class="list-group-item">
-							<p class="mb-2">adipisicing elit. Illo, ea.</p>
-						</li>
-						<li class="list-group-item">
-							<p class="mb-2">adipisicing elit. Illo, ea.</p>
-						</li>
-						<li class="list-group-item">
-							<p class="mb-2">adipisicing elit. Illo, ea.</p>
-						</li>
-					</ul>
-				</div>
-			</div>
+		</div>
+	</div>
+</div>
 
+
+<div class="modal fade" id="alumnos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Alumnos inscritos.</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+				<table class="table table-sm table-hover table-bordered">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ($alumnos as $k => $a): ?>
+							<tr>
+								<td><?= $k + 1 ?></td>
+								<td><?= $a->nombre ?></td>
+								<td><?= $a->apellido ?></td>
+							</tr>
+						<?php endforeach ?>
+					</tbody>
+				</table>
+
+			</div>
 		</div>
 	</div>
 </div>

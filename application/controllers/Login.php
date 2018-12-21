@@ -10,14 +10,16 @@ class Login extends CI_Controller {
 
 	public function index()
 	{
-		$user = $this->session->userdata('sesion');
-		$usuario['user'] = $user;
+		// $user = $this->session->userdata('sesion');
+		// $usuario['user'] = $user;
 
-		$str = explode('/', current_url());
-		(isset($str[5]) && $str[5] == 'notas')? $bool = true : $bool = false;
-		$usuario['url'] = $bool;
+		// $str = explode('/', current_url());
+		// (isset($str[5]) && $str[5] == 'notas')? $bool   = true : $bool = false;
+		// (isset($str[5]) && $str[5] == 'profesor')? $bol = false : $bol = true;
+		// $usuario['url']   = $bool;
+		// $usuario['blank'] = $bol;
 
-		$this->load->view('includes/header', $usuario);
+		$this->load->view('includes/header');
 		$this->load->view('login');
 		$this->load->view('includes/footer');
 	}
@@ -34,7 +36,7 @@ class Login extends CI_Controller {
 			if ( $pass == $data[0]->clave )
 			{
 				$this->session->set_userdata('sesion', ['role' => $data[0]->tipo, 'usuario' => $user]);
-				
+
 				if ( $data[0]->tipo == 'profesor' )
 				{
 					redirect('profesor');
@@ -51,7 +53,7 @@ class Login extends CI_Controller {
 				$this->session->set_flashdata('badpass', 'Contraseña incorrecta');
 				redirect();
 			}
-		} 
+		}
 		else {
 			$this->session->set_flashdata('baduser', 'Usuario incorrecto');
 			redirect('');

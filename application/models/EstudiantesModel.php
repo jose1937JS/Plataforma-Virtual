@@ -54,9 +54,11 @@ class EstudiantesModel extends CI_Model {
 
 	public function getPublicacion($id)
 	{
-		return $this->db->select('Publicaciones.publicacion, Publicaciones.archivo, Publicaciones.fecha, Publicaciones.persona_id, Personas.nombre, Personas.apellido, Publicaciones.archivo')
+		return $this->db->select('Publicaciones.publicacion, Publicaciones.archivo, Publicaciones.fecha, Publicaciones.persona_id, Secciones.seccion, Personas.nombre, Personas.apellido, Publicaciones.archivo, Materias.materia')
 				->from('Publicaciones')
-				->join('Personas', 'Personas.id_persona = Publicaciones.persona_id')
+				->join('Personas',  'Personas.id_persona  = Publicaciones.persona_id')
+				->join('Secciones', 'Secciones.id_seccion = Publicaciones.seccion_id')
+				->join('Materias',  'Materias.id_materia  = Secciones.materia_id')
 				->where('Publicaciones.id_publicacion', $id)
 				->get()->result();
 	}
@@ -125,7 +127,7 @@ class EstudiantesModel extends CI_Model {
 	{
 		$this->db->where('comentario_id', $idcomment)
 				->delete('PubicacionComentarios');
-				
+
 		$this->db->where('id_comentario', $idcomment)
 				->delete('Comentarios');
 
@@ -134,7 +136,7 @@ class EstudiantesModel extends CI_Model {
 	public function eliminarpub($idpub)
 	{
 		$this->db->where('publicacion_id', $idpub)
-				->delete('PubicacionComentarios');		
+				->delete('PubicacionComentarios');
 
 		$this->db->where('id_publicacion', $idpub)
 				->delete('Publicaciones');
@@ -160,5 +162,38 @@ class EstudiantesModel extends CI_Model {
 						->where('PersonaSecciones.seccion_id', $seccionid[0]->id_seccion)
 						->where('Usuarios.tipo', 'alumno')
 						->get()->result();
+	}
+
+	public function getFiles($seccionid)
+	{
+		return $this->db->select('archivo')
+					->from('Publicaciones')
+					->where('seccion_id', $seccionid)
+					->where("archivo != 'NULL'")
+					->get()->result();
+	}
+
+	public function getMateria($materia)
+	{
+		return $this->db->select('materia, imagen')
+				->from('Materias')
+				->where('materia', $materia)
+				->get()->result();
+	}
+
+	public function getAllMaterias()
+	{
+		return $this->db->select('Materias.materia, Materias.imagen, Secciones.seccion, Secciones.id_seccion')
+				->from('Secciones')
+				->join('Materias', 'Materias.id_materia  = Secciones.materia_id')
+				->get()->result();
+	}
+
+	public function addclass($idseccion, $idpersona)
+	{
+		$this->db->insert('PersonaSecciones', [
+			'persona_id' => $idpersona,
+			'seccion_id' => $idseccion
+		]);
 	}
 }

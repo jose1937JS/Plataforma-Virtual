@@ -18,21 +18,84 @@ class Profesores extends CI_Controller {
 			$user['user'] = $usuario;
 
 			$str = explode('/', current_url());
-			(isset($str[5]) && $str[5] == 'notas')? $bool = true : $bool = false;
-			(isset($str[5]) && $str[5] == 'profesor')? $bol = true : $bol = false;
-			$user['url'] = $bool;
+			(isset($str[5]) && $str[5] == 'notas')? $bool   = true : $bool = false;
+			(isset($str[5]) && $str[5] == 'profesor')? $bol = false : $bol = true;
+			$user['url']   = $bool;
 			$user['blank'] = $bol;
 
 			$data['materias']    = $this->EstudiantesModel->getMaterias($usuario['usuario']);
 			$data['allmaterias'] = $this->ProfesoresModel->getMaterias();
 			$data['personaid']   = $this->EstudiantesModel->getIdPersona($usuario['usuario']);
 
-			$this->load->view('includes/header', $user);
+			$this->load->view('includes/header');
+			$this->load->view('includes/sidebar', $user);
 			$this->load->view('estudiantes/estudiantes', $data);
 			$this->load->view('includes/footer');
 		}
 		else {
 			redirect('');
+		}
+	}
+
+	public function notas()
+	{
+		$user = $this->session->userdata('sesion');
+
+		if ( $user['role'] == 'profesor' )
+		{
+			$usuario['user']    = $user;
+
+			$data['materias'] = $this->EstudiantesModel->getMaterias($user['usuario']);
+
+			$str = explode('/', current_url());
+			(isset($str[5]) && isset($str[6]) && $str[5] == 'notas')? $bool = true : $bool = false;
+			(isset($str[5]) == 'profesor')? $bol = false : $bol = true;
+			$usuario['blank'] = $bol;
+			$usuario['url']   = $bool;
+
+			$usuario['materia'] = $str[5];
+
+			$this->load->view('includes/header');
+			$this->load->view('includes/sidebar', $usuario);
+			$this->load->view('profesores/notas', $data);
+			$this->load->view('includes/footer');
+		}
+		else {
+			redirect();
+		}
+	}
+
+	public function materianotas($materia, $seccion)
+	{
+		$user = $this->session->userdata('sesion');
+
+		if ( $user['role'] == 'profesor' )
+		{
+			$str = explode('/', current_url());
+
+			$usuario['user'] = $user;
+
+			$data['materias'] = $this->EstudiantesModel->getMaterias($user['usuario']);
+			$data['notas'] 	  = $this->ProfesoresModel->getNotas($str[6]);
+
+			(isset($str[5]) && $str[5] == 'notas')? $bool   = true : $bool = false;
+			(isset($str[5]) && $str[5] == 'profesor')? $bol = false : $bol = true;
+			$usuario['url']   = $bool;
+			$usuario['blank'] = $bol;
+
+			// getSeccId(materia, seccion)
+			$id = $this->EstudiantesModel->getSeccId($str[6], $str[7]);
+			$usuario['materia'] = $str[6];
+			$usuario['alumnos'] = $this->EstudiantesModel->getAlumnos($id);
+			$usuario['seccion'] = $seccion;
+
+			$this->load->view('includes/header');
+			$this->load->view('includes/sidebar', $usuario);
+			$this->load->view('profesores/notasmateria', $data);
+			$this->load->view('includes/footer');
+		}
+		else {
+			redirect();
 		}
 	}
 
@@ -47,90 +110,99 @@ class Profesores extends CI_Controller {
 		redirect('profesor');
 	}
 
-	public function notas()
+
+	public function addnotas()
 	{
-		$user = $this->session->userdata('sesion');
-		
-		if ( $user['role'] == 'profesor' )
-		{
-			$usuario['user'] = $user;
+		$materia    = $this->input->post('materia');
+		$evaluacion = $this->input->post('evaluacion');
+		$alumno 	= $this->input->post('alumno');
+		$nota 		= $this->input->post('nota');
+		$seccion	= $this->input->post('seccion');
 
-			$data['materias'] = $this->EstudiantesModel->getMaterias($user['usuario']);
+		$this->ProfesoresModel->addnotas($materia, $evaluacion,$alumno, $nota);
 
-			$str = explode('/', current_url());
-			(isset($str[5]) && isset($str[6]) && $str[5] == 'notas')? $bool = true : $bool = false;
-			(isset($str[5]) == 'profesor')? $bol = true : $bol = false;
-			$usuario['blank'] = $bol;
-			$usuario['url'] = $bool;
-
-			$this->load->view('includes/header', $usuario);
-			$this->load->view('profesores/notas', $data);
-			$this->load->view('includes/footer');
-		}
-		else {
-			redirect();
-		}
-	}
-
-	public function materianotas($materia, $seccion)
-	{
-		$user = $this->session->userdata('sesion');
-		
-		if ( $user['role'] == 'profesor' )
-		{
-			$usuario['user'] = $user;
-
-			$data['materias'] = $this->EstudiantesModel->getMaterias($user['usuario']);
-
-			$str = explode('/', current_url());
-			(isset($str[5]) && $str[5] == 'notas')? $bool = true : $bool = false;
-			$usuario['url'] = $bool;
-
-			$this->load->view('includes/header', $usuario);
-			$this->load->view('profesores/notasmateria', $data);
-			$this->load->view('includes/footer');
-		}
-		else {
-			redirect();
-		}
+		redirect("notas/$materia/$seccion");
 	}
 
 
 
-	// LOGICA PARA EL USUARIO ADMINISTRADOR, NO TIENE NADA Q VER CON EL PROFESOR.
-
-	public function admin()
-	{
-		$user = $this->session->userdata('sesion');
-		
-		if ( $user['role'] == 'admin' )
-		{
-			$usuario['user'] = $user;
-
-			$this->load->view('includes/header', $usuario);
-			$this->load->view('administracion');
-			$this->load->view('includes/footer');
-		}
-		else {
-			redirect();
-		}
-	}
 
 	public function perfil()
 	{
 		$user = $this->session->userdata('sesion');
-		
-		if ( $user['role'] == 'profesor' )
+
+		if ( $user['role'] == 'profesor' || $user['role'] == 'alumno')
 		{
 			$usuario['user'] = $user;
 
-			$this->load->view('includes/header', $usuario);
-			$this->load->view('perfil');
+			(isset($str[5]) && $str[5] == 'notas')? $bool   = true : $bool = false;
+			(isset($str[5]) && $str[5] == 'profesor')? $bol = false : $bol = true;
+			$usuario['url']   = $bool;
+			$usuario['blank'] = $bol;
+
+			$data['perfil'] = $this->ProfesoresModel->perfil($user['usuario']);
+
+			$this->load->view('includes/header');
+			$this->load->view('includes/sidebar', $usuario);
+			$this->load->view('perfil', $data);
 			$this->load->view('includes/footer');
 		}
 		else {
 			redirect();
 		}
+	}
+
+	public function editperfil()
+	{
+		$nombre    = $this->input->post('nombre');
+		$apellido  = $this->input->post('apellido');
+		$email     = $this->input->post('email');
+		$telefono  = $this->input->post('telefono');
+		$usuario   = $this->input->post('usuario');
+		$clave 	   = $this->input->post('clave');
+		$idpersona = $this->input->post('idpersona');
+
+		$config['upload_path']   = './application/third_party/';
+		$config['max_size']	     = '5000';
+		$config['allowed_types'] = 'png|ico|jpg|jpeg|gif';
+
+		$this->load->library('upload', $config);
+
+		if ( $this->upload->do_upload('image') )
+		{
+			$files    = $this->upload->data();
+			$filename = $files['file_name'];
+
+			$this->ProfesoresModel->editperfil($idpersona, $nombre, $apellido, $telefono, $email, $usuario, $clave, $filename);
+
+			redirect("perfil");
+		}
+		else
+		{
+			$this->ProfesoresModel->editperfil($idpersona, $nombre, $apellido, $telefono, $email, $usuario, $clave, NULL);
+
+			// var_dump($this->upload->display_errors());exit();
+
+			// $this->output
+			// 	->set_content_type('application/json')
+			// 	->set_output(json_encode($this->upload->display_errors()));
+		}
+
+		redirect("perfil");
+
+	}
+
+	public function crearcuenta()
+	{
+		$nombre   = $this->input->post('nombre');
+		$apellido = $this->input->post('apellido');
+		$correo   = $this->input->post('correo');
+		$telefono = $this->input->post('telefono');
+		$tipo 	  = $this->input->post('tipo');
+		$usuario  = $this->input->post('usuario');
+		$clave    = $this->input->post('clave');
+
+		$this->ProfesoresModel->crearcuenta($nombre, $apellido, $correo, $telefono, $tipo, $usuario, $clave);
 	}
 
 }

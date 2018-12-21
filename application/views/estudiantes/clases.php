@@ -1,9 +1,9 @@
-<div class="container-fluid p-0">
-	<div class="card mb-5  text-center jumbotron">
+<div class="container-fluid p-0" >
+	<div class="card mb-5 text-center jumbotron bg" style="background-image: url(<?= base_url('application/assets/').$materia[0]->imagen ?>); ">
 		<div class="card-body">
 
- 			<h1><?= $materia.' - '.$seccion ?></h1>
-		
+ 			<h1 class="tbg"><?= $materia[0]->materia.' - '.$seccion ?></h1>
+
 		</div>
 	</div>
 </div>
@@ -28,14 +28,14 @@
 
 						<div class="mt-3">
 							<?php if ( preg_match("/(\.png|\.jpg|\.jpeg|\.ico|\.gif)$/", $publicacion->archivo) ): ?>
-								
+
 								<div class="view overlay zoom">
 									<img style="max-width: 600px" class="img-thumbnail" src="<?= base_url('application/third_party/').$publicacion->archivo ?>" alt="404">
-								</div>			
+								</div>
 
 							<?php elseif( preg_match("/^(http:\/\/|https:\/\/)/", $publicacion->publicacion) ): ?>
 								<a href="<?= $publicacion->publicacion ?>" target="_blank"><?= $publicacion->publicacion ?></a>
-							
+
 							<?php elseif( preg_match('/(\.txt|\.pdf|\.doc|\.docx|\.xls|\.csv|\.odp|\.odg|\.ppxs|\.otp|\.ppt|\.xlsx|\.ods|\.sql|\.html|\.php|\.js|\.css|\.py|\.cpp|\.java)$/', $publicacion->archivo)) : ?>
 
 								<a href="<?= base_url('application/third_party/').$publicacion->archivo ?>" target="_blank"><?= $publicacion
@@ -52,11 +52,11 @@
 							<?php if ( $user['usuario'] == $publicacion->usuario ): ?>
 
 								<a href="#delpub" class="delpub mr-3" data-id="<?= $publicacion->id_publicacion ?>" data-toggle="modal"><i class="fas fa-trash"></i> Eliminar</a>
-							
+
 							<?php endif ?>
-							
+
 							<?= anchor("publicacion/$publicacion->id_publicacion", '<i class="fas fa-eye"></i> Ver publicacion') ?>
-						
+
 						</div>
 					</div>
 
@@ -71,7 +71,7 @@
 							<div class="form-row">
 								<div class="col-11">
 									<input type="text" id="comment" name="comentario" class="form-control">
-									<label for="comment">Escribe tu comentario ...</label> 
+									<label for="comment">Escribe tu comentario ...</label>
 								</div>
 								<div class="col-1">
 									<button class="btn btn-sm btn-primary px-3" data-toggle="tooltip" title="Enviar respuesta">
@@ -106,7 +106,7 @@
 						<?= form_open('eliminarpub') ?>
 
 							<input type="hidden" name="idpub" id="idpub">
-							<input type="hidden" name="materia" value="<?= $materia ?>">
+							<input type="hidden" name="materia" value="<?= $materia[0]->materia ?>">
 							<input type="hidden" name="seccion" value="<?= $seccion ?>">
 
 							<div class="modal-body">
@@ -139,10 +139,14 @@
 							<p class="small font-weight-bold">Correo Electrónico:</p>
 							<p><?= $profesor[0]->correo ?></p>
 						</li>
-						<li class="list-group-item">
-							<h4 class="mb-3">Otra</h4>
-							<p class="mb-2">adipisicing elit. Illo, ea.</p>
-						</li>
+						<li class="list-group-item"><h4>Archivos</h4></li>
+
+						<?php foreach ($files as $file): ?>
+							<li class="list-group-item">
+								<a target="_blank" href="<?= base_url('application/third_party/').$file->archivo ?>"><?= $file->archivo ?></a>
+							</li>
+						<?php endforeach ?>
+
 					</ul>
 				</div>
 			</div>
@@ -150,14 +154,8 @@
 			<div class="card hoverable mt-4">
 				<div class="card-body p-0">
 					<ul class="list-group list-group-flush">
-						<li class="list-group-item"><h4>Archivos</h4></li>
 						<li class="list-group-item">
-							<p class="mb-2">adipisicing elit. Illo, ea.</p>
-						</li>
-						<li class="list-group-item">
-							<p class="mb-2">adipisicing elit. Illo, ea.</p>
-						</li>
-						<li class="list-group-item">
+							<h4 class="mb-3">Otra</h4>
 							<p class="mb-2">adipisicing elit. Illo, ea.</p>
 						</li>
 					</ul>
@@ -181,13 +179,13 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				
+
 				<?= form_open_multipart('publicar', ['class' => 'md-form']) ?>
-					
-					<input type="hidden" name="materia" value="<?= $materia ?>">
+
+					<input type="hidden" name="materia" value="<?= $materia[0]->materia ?>">
 					<input type="hidden" name="seccion" value="<?= $seccion ?>">
 					<input type="hidden" name="seccionid" value="<?= $seccionid ?>">
-					<input type="hidden" name="personaid" value="<?= $personaid[0]->id_persona ?>"> 
+					<input type="hidden" name="personaid" value="<?= $personaid[0]->id_persona ?>">
 
 					<div class="input-group">
 						<i class="fas fa-pen prefix"></i>
@@ -196,7 +194,7 @@
 					</div>
 
 					<div class="d-flex justify-content-between mt-5">
-						
+
 						<?php if( $user['role'] == 'profesor' ): ?>
 							<div class="file-field">
 								<a class="btn-floating mt-0 btn-primary float-left">
@@ -213,7 +211,7 @@
 							<i class="fas fa-send mr-2"></i> publicar
 						</button>
 					</div>
-				
+
 				</form>
 
 			</div>
@@ -234,7 +232,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				
+
 				<table class="table table-sm table-hover table-bordered">
 					<thead>
 						<tr>
