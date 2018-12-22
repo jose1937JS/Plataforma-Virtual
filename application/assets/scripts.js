@@ -41,12 +41,24 @@ $(() => {
 		})
 
 		.done(data => {
-			$('#materia').val('')
-			$('#evaluacion').val('')
-			$('#alumno').val('')
-			$('#nota').val('')
 
-			toastr.success('Nota cargada con éxito', '')
+			$('#nota').val('')
+			$('#evaluacion').val('')
+
+			if (data == 'El alumno ya tiene ésta nota cargada.')
+			{
+				toastr.error(data)
+				return false
+			}
+
+			$('#materia').val('')
+			$('#alumno').val('')
+
+			toastr.success('Nota cargada con éxito')
+
+			setTimeout(() => {
+				toastr.info('Recarga la página para ver los cambios.')
+			}, 2000)
 		})
 
 		.fail(error => {
@@ -76,6 +88,13 @@ $(() => {
 
 		.done(data => {
 			console.log(data)
+
+			if (data == 'Este usuario ya existe.') {
+				toastr.error(data)
+				$('#usuario').val('')
+				return false
+			}
+
 			$('#nombre').val('')
 			$('#apellido').val('')
 			$('#correo').val('')
@@ -118,6 +137,10 @@ $(() => {
 			toastr.error(fail.statusText, 'Ha ocurrido un error')
 		})
 	})
+
+
+	// VALIDADCIONES
+	console.log('queso')
 
 	// reloj
 	setInterval(() => {

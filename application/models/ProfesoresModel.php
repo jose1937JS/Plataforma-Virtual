@@ -54,15 +54,14 @@ class ProfesoresModel extends CI_Model {
 					->get()->result();
 	}
 
-	public function editperfil($idpersona, $nombre, $apellido, $telefono, $email, $usuario, $clave, $filename)
+	public function editperfil($idpersona, $nombre, $apellido, $telefono, $email, $usuario, $clave)
 	{
 		$this->db->where('id_persona', $idpersona);
 		$this->db->update('Personas', [
 			'nombre' 	  => $nombre,
 			'apellido' 	  => $apellido,
 			'correo' 	  => $email,
-			'telefono'	  => $telefono,
-			'foto_perfil' => $filename
+			'telefono'	  => $telefono
 		]);
 
 		$this->db->where('persona_id', $idpersona);
@@ -71,6 +70,14 @@ class ProfesoresModel extends CI_Model {
 			'clave' 	  => $clave
 		]);
 
+	}
+
+	public function editimg($imagen, $idpersona)
+	{
+		$this->db->where('id_persona', $idpersona);
+		$this->db->update('Personas', [
+			'foto_perfil' => $imagen
+		]);
 	}
 
 	public function crearcuenta($nombre, $apellido, $correo, $telefono, $tipo, $usuario, $clave)
@@ -90,6 +97,21 @@ class ProfesoresModel extends CI_Model {
 			'tipo'       => $tipo,
 			'persona_id' => $id[0]->lastid
 		]);
+	}
+
+	public function getUser($user)
+	{
+		return $this->db->get_where('Usuarios', ['usuario' => $user])->result();
+	}
+
+	public function getRegister($alumno, $evaluacion, $materia)
+	{
+		return $this->db->select('alumno, materia, evaluacion')
+					->from('Notas')
+					->where('materia', $materia)
+					->where('alumno', $alumno)
+					->where('evaluacion', $evaluacion)
+					->get()->result();
 	}
 
 }

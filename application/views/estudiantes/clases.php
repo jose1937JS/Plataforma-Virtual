@@ -70,7 +70,7 @@
 
 							<div class="form-row">
 								<div class="col-11">
-									<input type="text" id="comment" name="comentario" class="form-control">
+									<input type="text" id="comment" maxlength="255" required name="comentario" class="form-control">
 									<label for="comment">Escribe tu comentario ...</label>
 								</div>
 								<div class="col-1">
@@ -151,16 +151,6 @@
 				</div>
 			</div>
 
-			<div class="card hoverable mt-4">
-				<div class="card-body p-0">
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-							<h4 class="mb-3">Otra</h4>
-							<p class="mb-2">adipisicing elit. Illo, ea.</p>
-						</li>
-					</ul>
-				</div>
-			</div>
 		</div>
 	</div>
 </div>
@@ -189,7 +179,7 @@
 
 					<div class="input-group">
 						<i class="fas fa-pen prefix"></i>
-						<textarea type="text" name="publicacion" id="pub" class="md-textarea form-control"></textarea>
+						<textarea type="text" name="publicacion" required id="pub" maxlength="512" class="md-textarea form-control"></textarea>
 						<label for="pub">Write down something!</label>
 					</div>
 

@@ -117,11 +117,17 @@ class Profesores extends CI_Controller {
 		$evaluacion = $this->input->post('evaluacion');
 		$alumno 	= $this->input->post('alumno');
 		$nota 		= $this->input->post('nota');
-		$seccion	= $this->input->post('seccion');
+		// $seccion	= $this->input->post('seccion');
 
-		$this->ProfesoresModel->addnotas($materia, $evaluacion,$alumno, $nota);
+		$registro = $this->ProfesoresModel->getRegister($alumno, $evaluacion, $materia);
 
-		redirect("notas/$materia/$seccion");
+		if ($materia == $registro[0]->materia && $evaluacion == $registro[0]->evaluacion && $alumno == $registro[0]->alumno) {
+			die('El alumno ya tiene ésta nota cargada.');
+		}
+
+		$this->ProfesoresModel->addnotas($materia, $evaluacion, $alumno, $nota);
+
+		// redirect("notas/$materia/$seccion");
 	}
 
 
@@ -162,6 +168,16 @@ class Profesores extends CI_Controller {
 		$clave 	   = $this->input->post('clave');
 		$idpersona = $this->input->post('idpersona');
 
+		$this->ProfesoresModel->editperfil($idpersona, $nombre, $apellido, $telefono, $email, $usuario, $clave);
+
+		redirect("perfil");
+
+	}
+
+	public function editimg()
+	{
+		$idpersona = $this->input->post('idpersona');
+
 		$config['upload_path']   = './application/third_party/';
 		$config['max_size']	     = '5000';
 		$config['allowed_types'] = 'png|ico|jpg|jpeg|gif';
@@ -173,22 +189,10 @@ class Profesores extends CI_Controller {
 			$files    = $this->upload->data();
 			$filename = $files['file_name'];
 
-			$this->ProfesoresModel->editperfil($idpersona, $nombre, $apellido, $telefono, $email, $usuario, $clave, $filename);
+			$this->ProfesoresModel->editimg($filename, $idpersona);
 
 			redirect("perfil");
 		}
-		else
-		{
-			$this->ProfesoresModel->editperfil($idpersona, $nombre, $apellido, $telefono, $email, $usuario, $clave, NULL);
-
-			// var_dump($this->upload->display_errors());exit();
-
-			// $this->output
-			// 	->set_content_type('application/json')
-			// 	->set_output(json_encode($this->upload->display_errors()));
-		}
-
-		redirect("perfil");
 
 	}
 
@@ -201,6 +205,14 @@ class Profesores extends CI_Controller {
 		$tipo 	  = $this->input->post('tipo');
 		$usuario  = $this->input->post('usuario');
 		$clave    = $this->input->post('clave');
+
+		$user = $this->ProfesoresModel->getUser($usuario);
+
+		if ($user[0]->usuario == $usuario) {
+
+			die("Este usuario ya existe.");
+
+		}
 
 		$this->ProfesoresModel->crearcuenta($nombre, $apellido, $correo, $telefono, $tipo, $usuario, $clave);
 	}

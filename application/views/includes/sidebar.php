@@ -31,7 +31,7 @@
 				<?php elseif( $blank ): ?>
 
 					<p class="navbar-text white-text">
-						hola
+
 					</p>
 
 				<?php else: ?>
@@ -149,7 +149,7 @@
 
 <?php if (isset($materia)): ?>
 
-	<!-- Modal -->
+	<!-- Modal para la carga de notas -->
 	<div class="modal fade" id="loadnotas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
@@ -169,22 +169,22 @@
 								<label>Materia</label>
 								<input type="text" readonly id="materia" value="<?= $materia ?>" name="materia" class="form-control">
 							</div>
-							<div class="form-group col-lg-4">
+							<div class="form-group col-lg-3">
 								<label for="evaluacion">Evaluación</label>
-								<input type="text" id="evaluacion" name="evaluacion" class="form-control">
+								<input type="text" id="evaluacion" required="" name="evaluacion" class="form-control">
 							</div>
 							<div class="form-group col-lg-4">
 								<label for="alumno">Alumno</label>
-								<select name="alumno" id="alumno" class="custom-select browser-default">
+								<select name="alumno" id="alumno" required="" class="custom-select browser-default">
 									<option disabled selected>Selecciona a un alumno</option>
 									<?php foreach ($alumnos as $alm): ?>
 										<option><?= $alm->nombre.' '.$alm->apellido ?></option>
 									<?php endforeach ?>
 								</select>
 							</div>
-							<div class="form-group col-lg-1">
+							<div class="form-group col-lg-2">
 								<label for="nota">Nota</label>
-								<input type="text" id="nota" name="nota" class="form-control" pattern="[0-9]{1,2}">
+								<input type="number" id="nota" required="" name="nota" class="form-control" min="0" max="100">
 							</div>
 						</div>
 

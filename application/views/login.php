@@ -68,7 +68,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text fas fa-user"></div>
 								</div>
-								<input type="text" name="nombre" id="nombre" class="form-control">
+								<input type="text" name="nombre" id="nombre" class="form-control" pattern="^[a-zA-Zñáéíóú]+(?:\s?[a-zA-Zñáéíóú]\s?)+$" maxlength="64" required>
 							</div>
 						</div>
 
@@ -78,7 +78,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text fas fa-user"></div>
 								</div>
-								<input type="text" name="apellido" id="apellido" class="form-control">
+								<input type="text" name="apellido" id="apellido" class="form-control" pattern="^[a-zA-Zñáéíóú]+(?:\s?[a-zA-Zñáéíóú]\s?)+$" maxlength="64" required>
 							</div>
 						</div>
 					</div>
@@ -90,7 +90,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text fas fa-envelope"></div>
 								</div>
-								<input type="email" name="correo" id="correo" class="form-control">
+								<input type="email" name="correo" id="correo" class="form-control" pattern="[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+" maxlength="64" required>
 							</div>
 						</div>
 
@@ -100,7 +100,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text fas fa-phone"></div>
 								</div>
-								<input type="text" name="telefono" id="telefono" class="form-control">
+								<input type="text" name="telefono" id="telefono" class="form-control" minlength="10" maxlength="11" pattern="[0-9]{10,11}">
 							</div>
 						</div>
 					</div>
@@ -112,7 +112,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text"><i class="fas fa-user-circle"></i></div>
 								</div>
-								<input type="text" name="usuario" id="usuario" class="form-control">
+								<input type="text" name="usuario" id="usuario" class="form-control" maxlength="20" pattern="^[\w]+$" required>
 							</div>
 						</div>
 
@@ -122,7 +122,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text fas fa-lock"></div>
 								</div>
-								<input type="password" name="clave" id="clave" class="form-control">
+								<input type="password" name="clave" id="clave" class="form-control" minlength="4" required>
 							</div>
 						</div>
 					</div>
@@ -134,7 +134,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text fas fa-star"></div>
 								</div>
-								<select name="tipo" id="tipo" class="browser-default custom-select">
+								<select name="tipo" id="tipo" class="browser-default custom-select" required>
 									<option disabled selected>Selecciona el tipo de cuenta</option>
 									<option value="alumno">Estudiante</option>
 									<option value="profesor">Profesor</option>
