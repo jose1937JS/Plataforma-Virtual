@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 21-12-2018 a las 14:22:15
+-- Tiempo de generación: 22-12-2018 a las 18:44:40
 -- Versión del servidor: 5.5.58-0ubuntu0.14.04.1
 -- Versión de PHP: 7.2.13-1+ubuntu14.04.1+deb.sury.org+1
 
@@ -37,39 +37,6 @@ CREATE TABLE `Comentarios` (
   `fecha` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `persona_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `Comentarios`
---
-
-INSERT INTO `Comentarios` (`id_comentario`, `comentario`, `archivo`, `fecha`, `persona_id`) VALUES
-(1, 'holaaa mama mirame etoy comentando una publiacion', NULL, '15-07-2018 17:44:11', 1),
-(2, 'hola q tal', '', '06-12-2018 21:30:57', 1),
-(3, '', '', '06-12-2018 21:44:48', 1),
-(4, '', '', '06-12-2018 21:53:38', 1),
-(5, '', '', '06-12-2018 21:54:24', 1),
-(6, '', '', '06-12-2018 21:57:37', 1),
-(8, 'hola q tla esta fito ?', '', '06-12-2018 22:42:01', 1),
-(9, '', '', '06-12-2018 22:43:23', 1),
-(11, 'hola wapa', '', '07-12-2018 19:09:42', 1),
-(13, 'comentario', '', '07-12-2018 21:48:40', 1),
-(17, '', 'A1.jpg', '07-12-2018 22:13:12', 2),
-(19, 'q tal yo tambine', '', '08-12-2018 15:35:26', 1),
-(20, 'comentario de cesaranotnasd', '', '08-12-2018 15:45:55', 2),
-(21, 'asdasdasda', '', '09-12-2018 22:16:02', 2),
-(22, 'asdasdasda', '', '09-12-2018 22:17:59', 2),
-(23, 'asdasdasda', '', '09-12-2018 22:18:14', 2),
-(24, 'asdasdasda', '', '09-12-2018 22:18:26', 2),
-(25, 'wenas', '', '09-12-2018 22:21:11', 2),
-(26, 'asdasdasdasadasdadadasd', '', '09-12-2018 22:45:16', 1),
-(27, 'brasilera', '', '09-12-2018 22:44:55', 1),
-(29, '', 'user.png', '09-12-2018 22:45:32', 1),
-(30, 'asdasdsad', '', '10-12-2018 19:37:07', 1),
-(31, '', 'postulacion.pdf', '10-12-2018 19:41:31', 1),
-(32, 'wenisimo', '', '10-12-2018 19:51:34', 2),
-(33, 'we code you eat', 'we_code_you_eat_nithinsuren-wallpaper-1280x768.jpg', '10-12-2018 20:50:22', 1),
-(34, 'amazing', '', '17-12-2018 16:34:50', 1),
-(35, 'wenaaaaaaaaaaas', '', '21-12-2018 14:10:49', 8);
 
 -- --------------------------------------------------------
 
@@ -112,13 +79,6 @@ CREATE TABLE `Notas` (
   `nota` varchar(4) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `Notas`
---
-
-INSERT INTO `Notas` (`id_notas`, `materia`, `evaluacion`, `alumno`, `nota`) VALUES
-(1, 'Biologia', 'El microscoopio', 'Cesar Pdrino', '46');
-
 -- --------------------------------------------------------
 
 --
@@ -134,15 +94,6 @@ CREATE TABLE `Personas` (
   `foto_perfil` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `Personas`
---
-
-INSERT INTO `Personas` (`id_persona`, `nombre`, `apellido`, `correo`, `telefono`, `foto_perfil`) VALUES
-(1, 'Jose', 'Fernando', 'jose@jose.com', '05151111112', '15492209_1081898171920908_3376817506387739139_n.png'),
-(2, 'enico', 'sadasd', '', '05151111112', NULL),
-(8, 'Maria de los angeles', 'de Lopez Lopez', 'maria@lopez.com', '', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -155,19 +106,6 @@ CREATE TABLE `PersonaSecciones` (
   `seccion_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `PersonaSecciones`
---
-
-INSERT INTO `PersonaSecciones` (`id_persecc`, `persona_id`, `seccion_id`) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 2, 1),
-(4, 1, 4),
-(5, 8, 4),
-(6, 8, 2),
-(7, 8, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -179,21 +117,6 @@ CREATE TABLE `PubicacionComentarios` (
   `publicacion_id` int(11) NOT NULL,
   `comentario_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `PubicacionComentarios`
---
-
-INSERT INTO `PubicacionComentarios` (`id_pubcomen`, `publicacion_id`, `comentario_id`) VALUES
-(22, 14, 26),
-(23, 14, 27),
-(25, 14, 29),
-(26, 15, 30),
-(27, 15, 31),
-(28, 16, 32),
-(29, 17, 33),
-(30, 17, 34),
-(31, 18, 35);
 
 -- --------------------------------------------------------
 
@@ -210,19 +133,6 @@ CREATE TABLE `Publicaciones` (
   `persona_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `Publicaciones`
---
-
-INSERT INTO `Publicaciones` (`id_publicacion`, `publicacion`, `archivo`, `fecha`, `seccion_id`, `persona_id`) VALUES
-(13, 'hola', '‪29258064_441168779636837_3495804869460192267_n_png.jpg', '09-12-2018 22:26:26', 1, 1),
-(14, 'dios mio', 'o1.jpg', '09-12-2018 22:34:47', 1, 1),
-(15, 'wenas', 'culminacion.pdf', '10-12-2018 18:04:46', 1, 1),
-(16, 'http://localhost/DOCS/mdb/mdbootstrap.com/docs/jquery/utilities/embeds/index.html', NULL, '10-12-2018 19:50:27', 1, 2),
-(17, 'sdadasd', NULL, '10-12-2018 19:53:23', 1, 2),
-(18, 'hi, this is the english class', NULL, '12-12-2018 19:45:20', 4, 1),
-(19, 'hola q tal ?', NULL, '21-12-2018 14:18:11', 1, 8);
-
 -- --------------------------------------------------------
 
 --
@@ -234,15 +144,6 @@ CREATE TABLE `Secciones` (
   `seccion` varchar(1) COLLATE utf8_spanish_ci NOT NULL,
   `materia_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `Secciones`
---
-
-INSERT INTO `Secciones` (`id_seccion`, `seccion`, `materia_id`) VALUES
-(1, 'A', 2),
-(2, 'C', 4),
-(4, 'A', 3);
 
 -- --------------------------------------------------------
 
@@ -257,15 +158,6 @@ CREATE TABLE `Usuarios` (
   `tipo` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `persona_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `Usuarios`
---
-
-INSERT INTO `Usuarios` (`id_usuario`, `usuario`, `clave`, `tipo`, `persona_id`) VALUES
-(1, 'jose', 'joseito', 'profesor', 1),
-(2, 'cesar', 'cesar', 'alumno', 2),
-(3, 'maria', 'maria', 'alumno', 8);
 
 --
 -- Índices para tablas volcadas
@@ -344,7 +236,7 @@ ALTER TABLE `Usuarios`
 -- AUTO_INCREMENT de la tabla `Comentarios`
 --
 ALTER TABLE `Comentarios`
-  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `Materias`
 --
@@ -354,37 +246,37 @@ ALTER TABLE `Materias`
 -- AUTO_INCREMENT de la tabla `Notas`
 --
 ALTER TABLE `Notas`
-  MODIFY `id_notas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_notas` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `Personas`
 --
 ALTER TABLE `Personas`
-  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `PersonaSecciones`
 --
 ALTER TABLE `PersonaSecciones`
-  MODIFY `id_persecc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_persecc` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `PubicacionComentarios`
 --
 ALTER TABLE `PubicacionComentarios`
-  MODIFY `id_pubcomen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_pubcomen` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `Publicaciones`
 --
 ALTER TABLE `Publicaciones`
-  MODIFY `id_publicacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_publicacion` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `Secciones`
 --
 ALTER TABLE `Secciones`
-  MODIFY `id_seccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_seccion` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `Usuarios`
 --
 ALTER TABLE `Usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Restricciones para tablas volcadas
 --
