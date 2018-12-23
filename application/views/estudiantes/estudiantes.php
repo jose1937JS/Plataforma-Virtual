@@ -62,13 +62,25 @@ matematica, fisica, quimica, ingles, biologia, geografia orientacion y convivenc
 
 		<?php else: ?>
 
-			<div class="col">
-				<div class="card">
-					<div class="card-body">
-						<h4>No estás en ninguna clase todavía. Presiona en el botón de arriba para inscribirte en una.</h4>
+			<?php if ($user['role'] == 'alumno'): ?>
+				<div class="col">
+					<div class="card">
+						<div class="card-body">
+							<h4>No estás en ninguna clase todavía. Presiona en el botón de arriba para inscribirte en una.</h4>
+						</div>
 					</div>
 				</div>
-			</div>
+
+			<?php else: ?>
+				<div class="col">
+					<div class="card">
+						<div class="card-body">
+							<h4>No tienes creada ninguna clase. Presiona en el botón de la esquina para crear una.</h4>
+						</div>
+					</div>
+				</div>
+
+			<?php endif ?>
 
 		<?php endif ?>
 

@@ -206,24 +206,13 @@
 							<p class="small font-weight-bold">Correo Electrónico:</p>
 							<p><?= $profesor[0]->correo ?></p>
 						</li>
-						<li class="list-group-item"><h5>Archivos</h5></li>
+						<li class="list-group-item"><h5>Archivos principales</h5></li>
 						<?php foreach ($files as $file): ?>
 							<li class="list-group-item">
 								<a target="_blank" href="<?= base_url('application/third_party/').$file->archivo ?>"><?= $file->archivo ?></a>
 							</li>
 						<?php endforeach ?>
 
-					</ul>
-				</div>
-			</div>
-
-			<div class="card hoverable mt-4">
-				<div class="card-body p-0">
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-							<h5 class="">Otra</h5>
-							<p class="mb-2">adipisicing elit. Illo, ea.</p>
-						</li>
 					</ul>
 				</div>
 			</div>

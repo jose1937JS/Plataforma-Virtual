@@ -65,7 +65,7 @@
 
 							<input type="hidden" name="materia" value="<?= $publicacion->materia ?>">
 							<input type="hidden" name="seccion" value="<?= $publicacion->seccion ?>">
-							<input type="hidden" name="persona" value="<?= $publicacion->persona_id ?>">
+							<input type="hidden" name="persona" value="<?= $personaid[0]->id_persona ?>">
 							<input type="hidden" name="publicacion" value="<?= $publicacion->id_publicacion ?>">
 
 							<div class="form-row">
@@ -88,7 +88,7 @@
 			<?php if ( !isset($publicaciones[0]) ): ?>
 				<div class="card">
 					<div class="card-body">
-						<h3 class="text-center">There isn't nothing to show. Be the first to create a new post by pressing the orange button.</h3>
+						<h3 class="text-center">There isn't nothing to show. Be the first to create a new post by pressing the orange button on below.</h3>
 					</div>
 				</div>
 			<?php endif ?>
@@ -139,7 +139,7 @@
 							<p class="small font-weight-bold">Correo Electrónico:</p>
 							<p><?= $profesor[0]->correo ?></p>
 						</li>
-						<li class="list-group-item"><h4>Archivos</h4></li>
+						<li class="list-group-item"><h4>Archivos principales</h4></li>
 
 						<?php foreach ($files as $file): ?>
 							<li class="list-group-item">

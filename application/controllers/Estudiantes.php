@@ -58,8 +58,8 @@ class Estudiantes extends CI_Controller {
 			$data['files']	   = $this->EstudiantesModel->getFiles($seccionid[0]->id_seccion);
 
 			$str = explode('/', current_url());
-			(isset($str[5]) && $str[5] == 'notas')? $bool   = true : $bool = false;
-			(isset($str[5]) && $str[5] == 'profesor')? $bol = false : $bol = true;
+			(isset($str[5]) && $str[5] == 'notas')? $bool   = true  : $bool = false;
+			(isset($str[5]) && $str[5] == 'profesor')? $bol = false : $bol  = true;
 			$data['url']   = $bool;
 			$data['blank'] = $bol;
 
@@ -90,7 +90,6 @@ class Estudiantes extends CI_Controller {
 			$data['alumnos']  = $this->EstudiantesModel->getAlumnos($seccionid);
 			$data['files']	  = $this->EstudiantesModel->getFiles($seccionid[0]->id_seccion);
 
-
 			$persona 	= $this->session->userdata('sesion');
 			$personaid  = $this->EstudiantesModel->getIdPersona($persona['usuario']);
 
@@ -99,8 +98,8 @@ class Estudiantes extends CI_Controller {
 			$usuario['user']   = $persona;
 
 			$str = explode('/', current_url());
-			(isset($str[5]) && $str[5] == 'notas')? $bool   = true : $bool = false;
-			(isset($str[5]) && $str[5] == 'profesor')? $bol = false : $bol = true;
+			(isset($str[5]) && $str[5] == 'notas')? $bool   = true  : $bool = false;
+			(isset($str[5]) && $str[5] == 'profesor')? $bol = false : $bol  = true;
 			$usuario['url']   = $bool;
 			$usuario['blank'] = $bol;
 
