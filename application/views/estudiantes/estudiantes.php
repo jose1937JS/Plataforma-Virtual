@@ -1,4 +1,4 @@
-<!-- para repasar, quiwres un sistema de aula virtual, q tenga las siguientes caracteristicas: q maneje
+<!--
 * materias
 * secciones
 * estudiantes
@@ -10,8 +10,6 @@
 
 matematica, fisica, quimica, ingles, biologia, geografia orientacion y convivencia ciencias sociales
  -->
-
-
 
 <div class="container my-5">
 	<div class="row">

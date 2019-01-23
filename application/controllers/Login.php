@@ -19,6 +19,23 @@ class Login extends CI_Controller {
 		// $usuario['url']   = $bool;
 		// $usuario['blank'] = $bol;
 
+		// $this->load->view('includes/header');
+		$this->load->view('inicio');
+		// $this->load->view('includes/footer');
+	}
+
+	public function noticia()
+	{
+		$this->load->view('noticia');
+	}
+
+	public function proyecto()
+	{
+		$this->load->view('proyecto');
+	}
+
+	public function show()
+	{
 		$this->load->view('includes/header');
 		$this->load->view('login');
 		$this->load->view('includes/footer');

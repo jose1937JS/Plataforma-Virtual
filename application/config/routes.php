@@ -53,6 +53,10 @@ $route['default_controller'] 	  = 'login';
 $route['404_override'] 			  = '';
 $route['translate_uri_dashes']    = FALSE;
 
+$route['inicio']['get']			  = 'login/show';
+$route['noticia']['get']		  = 'login/noticia';
+$route['proyecto']['get']		  = 'login/proyecto';
+
 $route['login'] 				  = 'login/login';
 $route['logout']				  = 'login/logout';
 $route['profesor']			      = 'profesores';
